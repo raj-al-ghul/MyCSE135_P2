@@ -9,7 +9,7 @@ public class UserDAO {
 	public static UserBean first(UserBean bean) {
 		Statement stmt = null;
 
-		String searchQuery = "select * from users";
+		String searchQuery = "select * from THE_USER";
 		System.out.println("Query: " + searchQuery);
 		try {
 			currentCon = ConnectionManager.getConnection();
@@ -18,12 +18,12 @@ public class UserDAO {
 			boolean more = rs.next();
 
 			if (!more) {
-				System.out
-						.println("Sorry, you are not a registered user! Please sign up first");
+				System.out.println("Sorry, you are not a registered user!"
+						+ " Please sign up first");
 				bean.setValid(false);
 			} else if (more) {
-				String firstName = rs.getString("FirstName");
-				//String lastName = rs.getString("LastName");
+				String firstName = rs.getString("USER_NAME");
+				// String lastName = rs.getString("LastName");
 				System.out.println("Welcome " + firstName);
 
 			}

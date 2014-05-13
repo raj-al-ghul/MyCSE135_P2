@@ -32,14 +32,16 @@ public class ControllerServlet extends HttpServlet {
 
 		try {
 			UserBean user = new UserBean();
+			//user.setValid(true);
 			// user.setUserName(request.getParameter("un"));
 			// user.setPassword(request.getParameter("pw"));
+			
 			user = UserDAO.first(user);
 
 			if (user.isValid()) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("currentSessionUser", user);
-				response.sendRedirect("view.jsp");
+				response.sendRedirect("success.jsp");
 			} else {
 				response.sendRedirect("error.jsp");
 			}
