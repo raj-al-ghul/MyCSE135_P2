@@ -5,26 +5,21 @@
 <head>
 <meta http-equiv="Content-Type"
 	content="text/html; charset=windows-1256">
-<title>Login Page</title>
+<title>Project 2: Dashboard</title>
 </head>
 <body>
+
 	<form action="ControllerServlet">
-		Please enter your username <input type="text" name="un" /><br>
-		Please enter your password <input type="text" name="pw" /> <input
-			type="submit" value="submit">
-	</form>
-	<br>
-	<form>
 
 		<TABLE BORDER="3" CELLPADDING="10" CELLSPACING="10">
 			<TD>
 
 				<TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3">
-					<TD>Select View:</TD>
-					<TD>Select State:</TD>
-					<TD>Select Age:</TD>
-					<TD>Select Product:</TD>
-					<TD>Execute Query:</TD>
+					<TD><b></>Select View:</b></TD>
+					<TD><b></>Select State:</b></TD>
+					<TD><b></>Select Age:</b></TD>
+					<TD><b></>Select Product:</b></TD>
+					<TD><b>Execute Query:</b></TD>
 					<TR>
 						<TD><select>
 								<option value="owner">Owner</option>
@@ -119,9 +114,7 @@
 						<TD>2nd&nbsp;Table</TD>
 						<TD>2nd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Table</TD>
 					</TR>
-				</TABLE>
-
-			</TD>
+				</TABLE></TD>
 		</TABLE>
 	</form>
 </body>

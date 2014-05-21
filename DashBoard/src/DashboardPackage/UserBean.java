@@ -1,44 +1,19 @@
 package DashboardPackage;
 
+import java.sql.ResultSet;
+
 public class UserBean {
 	public boolean valid;
-	/*private String username;
-	private String password;
-	private String firstName;
-	private String lastName;
+	public ResultSet rsBean;
 
-
-	public String getFirstName() {
-		return firstName;
+	public void setRS(ResultSet rs) {
+		rsBean = rs;
 	}
-
-	public void setFirstName(String newFirstName) {
-		firstName = newFirstName;
+	
+	public ResultSet getRS()
+	{
+		return rsBean;
 	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String newLastName) {
-		lastName = newLastName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String newPassword) {
-		password = newPassword;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUserName(String newUsername) {
-		username = newUsername;
-	}*/
 
 	public boolean isValid() {
 		return valid;

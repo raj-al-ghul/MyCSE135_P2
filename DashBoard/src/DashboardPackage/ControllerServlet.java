@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.jsp.JspWriter;
 
 /**
  * Servlet implementation class ControllerServlet
@@ -32,7 +33,7 @@ public class ControllerServlet extends HttpServlet {
 
 		try {
 			UserBean user = new UserBean();
-			//user.setValid(true);
+			user.setValid(true);
 			// user.setUserName(request.getParameter("un"));
 			// user.setPassword(request.getParameter("pw"));
 			
