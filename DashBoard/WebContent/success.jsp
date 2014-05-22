@@ -1,5 +1,4 @@
-<%@ page language="java"
-	contentType="text/html; charset=windows-1256"
+<%@ page language="java" contentType="text/html; charset=windows-1256"
 	pageEncoding="windows-1256" import="DashboardPackage.*"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,25 +8,139 @@
 <title>Successful Query</title>
 </head>
 <body>
-	<h1>CONGRATS!!!!!</h1>
+	
 	<%
 		UserBean currentUser = (UserBean) (session
 				.getAttribute("currentSessionUser"));
 	%>
 
-	
-		<%
-			boolean more;
-			while (more = currentUser.rsBean.next()) {
-				//System.out.println( "USER: " + currentUser.rsBean.getString("USER_NAME") );
-				out.write(currentUser.rsBean.getString("USER_NAME") + "<br>");
-			}
-			UserDAO.closeConn(currentUser);%> 
-				
-				
-				
-			
-	
+	<form action="ControllerServlet">
+
+		<TABLE BORDER="3" CELLPADDING="10" CELLSPACING="10">
+			<TD>
+
+				<TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3">
+					<TD><b></>Select View:</b></TD>
+					<TD><b></>Select State:</b></TD>
+					<TD><b></>Select Age:</b></TD>
+					<TD><b></>Select Product:</b></TD>
+					<TD><b>Execute Query:</b></TD>
+					<TR>
+						<TD><select>
+								<option value="customer">Customer</option>
+								<option value="state">State</option>
+						</select></TD>
+						<TD><select name="state" size="1">
+								<option value="ALL">All</option>
+								<option value="AL">Alabama</option>
+								<option value="AK">Alaska</option>
+								<option value="AZ">Arizona</option>
+								<option value="AR">Arkansas</option>
+								<option value="CA">California</option>
+								<option value="CO">Colorado</option>
+								<option value="CT">Connecticut</option>
+								<option value="DE">Delaware</option>
+								<option value="DC">District of Columbia</option>
+								<option value="FL">Florida</option>
+								<option value="GA">Georgia</option>
+								<option value="HI">Hawaii</option>
+								<option value="ID">Idaho</option>
+								<option value="IL">Illinois</option>
+								<option value="IN">Indiana</option>
+								<option value="IA">Iowa</option>
+								<option value="KS">Kansas</option>
+								<option value="KY">Kentucky</option>
+								<option value="LA">Louisiana</option>
+								<option value="ME">Maine</option>
+								<option value="MD">Maryland</option>
+								<option value="MA">Massachusetts</option>
+								<option value="MI">Michigan</option>
+								<option value="MN">Minnesota</option>
+								<option value="MS">Mississippi</option>
+								<option value="MO">Missouri</option>
+								<option value="MT">Montana</option>
+								<option value="NE">Nebraska</option>
+								<option value="NV">Nevada</option>
+								<option value="NH">New Hampshire</option>
+								<option value="NJ">New Jersey</option>
+								<option value="NM">New Mexico</option>
+								<option value="NY">New York</option>
+								<option value="NC">North Carolina</option>
+								<option value="ND">North Dakota</option>
+								<option value="OH">Ohio</option>
+								<option value="OK">Oklahoma</option>
+								<option value="OR">Oregon</option>
+								<option value="PA">Pennsylvania</option>
+								<option value="RI">Rhode Island</option>
+								<option value="SC">South Carolina</option>
+								<option value="SD">South Dakota</option>
+								<option value="TN">Tennessee</option>
+								<option value="TX">Texas</option>
+								<option value="UT">Utah</option>
+								<option value="VT">Vermont</option>
+								<option value="VA">Virginia</option>
+								<option value="WA">Washington</option>
+								<option value="WV">West Virginia</option>
+								<option value="WI">Wisconsin</option>
+								<option value="WY">Wyoming</option>
+						</select></TD>
+						<TD><select>
+								<option value="ageAll">All</option>
+								<option value="age0">12-18</option>
+								<option value="age1">18-45</option>
+								<option value="age2">45-65</option>
+								<option value="age3">Over 65</option>
+						</select></TD>
+						<TD><select>
+								<option value="prodAll">All</option>
+								<option value="prod0">Prod0</option>
+								<option value="prod1">Prod1</option>
+								<option value="prod2">Prod2</option>
+								<option value="prod3">Prod3</option>
+						</select></TD>
+						<TD><center><input type="submit" value="Run" style="height: 2em; width: 7em"></center></TD>
+					</TR>
+
+				</TABLE>
+
+			</TD>
+
+		</TABLE>
+
+		<TABLE BORDER="3" CELLPADDING="10" CELLSPACING="10">
+			<TD><h1>View by Customer:</h1>
+
+				<TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3">
+					<TD><b>Name:</b></TD>
+					<TD><b>State:</b></TD>
+					<TD><b>Total Sales:</b></TD>
+
+					<%
+						boolean more;
+						while (more = currentUser.rsBean.next()) {
+							out.write("<TR>");
+							out.write("<TD>" + currentUser.rsBean.getString("USER_NAME")
+									+ "</TD>");
+							out.write("<TD>" + currentUser.rsBean.getString("USER_STATE") + "</TD>");
+							out.write("<TD>$$MONEY$$</TD>");
+							out.write("</TR>");
+						}
+						currentUser = UserDAO.closeConn(currentUser);
+					%>
+
+
+
+
+				</TABLE></TD>
+		</TABLE>
+		<center><input type="submit" value="Next10" style="height: 2em; width: 7em"></center>
+	</form>
+
+
+
+
+
+
 
 
 </body>

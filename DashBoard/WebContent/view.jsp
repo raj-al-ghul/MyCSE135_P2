@@ -22,7 +22,7 @@
 					<TD><b>Execute Query:</b></TD>
 					<TR>
 						<TD><select>
-								<option value="owner">Owner</option>
+								<option value="cutomer">Customer</option>
 								<option value="state">State</option>
 						</select></TD>
 						<TD><select name="state" size="1">
@@ -93,7 +93,7 @@
 								<option value="prod2">Prod2</option>
 								<option value="prod3">Prod3</option>
 						</select></TD>
-						<TD><input type="submit" value="Run"></TD>
+						<TD><center><input type="submit" value="Run" style="height: 2em; width: 7em"></center></TD>
 					</TR>
 
 				</TABLE>
@@ -102,20 +102,6 @@
 
 		</TABLE>
 
-		<TABLE BORDER="3" CELLPADDING="10" CELLSPACING="10">
-			<TD><h1>View by Owner:</h1>
-
-				<TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3">
-					<TD><b>Name:</b></TD>
-					<TD><b>State:</b></TD>
-					<TD><b>Total Sales:</b></TD>
-					<TR>
-						<TD>2nd&nbsp;Table</TD>
-						<TD>2nd&nbsp;Table</TD>
-						<TD>2nd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Table</TD>
-					</TR>
-				</TABLE></TD>
-		</TABLE>
 	</form>
 </body>
 </html>
