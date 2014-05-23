@@ -8,7 +8,7 @@
 <title>Successful Query</title>
 </head>
 <body>
-	
+
 	<%
 		UserBean currentUser = (UserBean) (session
 				.getAttribute("currentSessionUser"));
@@ -23,10 +23,11 @@
 					<TD><b></>Select View:</b></TD>
 					<TD><b></>Select State:</b></TD>
 					<TD><b></>Select Age:</b></TD>
-					<TD><b></>Select Product:</b></TD>
+					<TD><b></>Select Category:</b></TD>
 					<TD><b>Execute Query:</b></TD>
 					<TR>
 						<TD><select>
+								<option value="default">Choose:</option>
 								<option value="customer">Customer</option>
 								<option value="state">State</option>
 						</select></TD>
@@ -98,7 +99,9 @@
 								<option value="prod2">Prod2</option>
 								<option value="prod3">Prod3</option>
 						</select></TD>
-						<TD><center><input type="submit" value="Run" style="height: 2em; width: 7em"></center></TD>
+						<TD><center>
+								<input type="submit" value="Run" style="height: 2em; width: 7em">
+							</center></TD>
 					</TR>
 
 				</TABLE>
@@ -121,7 +124,8 @@
 							out.write("<TR>");
 							out.write("<TD>" + currentUser.rsBean.getString("USER_NAME")
 									+ "</TD>");
-							out.write("<TD>" + currentUser.rsBean.getString("USER_STATE") + "</TD>");
+							out.write("<TD>" + currentUser.rsBean.getString("USER_STATE")
+									+ "</TD>");
 							out.write("<TD>$$MONEY$$</TD>");
 							out.write("</TR>");
 						}
@@ -133,7 +137,9 @@
 
 				</TABLE></TD>
 		</TABLE>
-		<center><input type="submit" value="Next10" style="height: 2em; width: 7em"></center>
+		<center>
+			<input type="submit" value="Next10" style="height: 2em; width: 7em">
+		</center>
 	</form>
 
 
