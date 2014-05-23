@@ -5,6 +5,7 @@ import java.sql.*;
 public class UserDAO {
 	static Connection currentCon = null;
 	static ResultSet rs = null;
+	static ResultSet prodRS = null;
 	static Statement stmt = null;
 
 	public static UserBean closeConn(UserBean bean) {
@@ -33,39 +34,50 @@ public class UserDAO {
 
 		return bean;
 	}
+	
+	public static UserBean products(UserBean bean)
+	{
+		String productQuery = "select * from PRODUCTS";
+		
+		try {
+			currentCon = ConnectionManager.getConnection();
+			//System.out.println("AM I HERER?????");
+			stmt = currentCon.createStatement();
+			
+			prodRS = stmt.executeQuery(productQuery);
+			
+
+			
+			bean.setProdRS(prodRS);
+
+		} catch (Exception ex) {
+			System.out.println("Query failed: An Exception has occurred! "
+					+ ex);
+		}
+		return bean;
+	}
 
 	public static UserBean first(UserBean bean) {
 		//Statement stmt = null;
 
 		String searchQuery = "select * from THE_USER";
+		//String productQuery = "select * from PRODUCTS";
 		System.out.println("Query: " + searchQuery);
 		try {
 			currentCon = ConnectionManager.getConnection();
 			System.out.println("AM I HERER?????");
 			stmt = currentCon.createStatement();
+			
 
 			rs = stmt.executeQuery(searchQuery);
-
-			/*boolean more = rs.next();
-
-			if (!more) {
-				System.out.println("Sorry, you are not a registered user!"
-						+ " Please sign up first");
-				bean.setValid(false);
-			} else if (more) {
-				String firstName = rs.getString("USER_NAME");
-				System.out.println("TEST#$#$#$#$#");
-				// String lastName = rs.getString("LastName");
-				System.out.println("Welcome " + firstName);
-				// JspWriter out = null;
-				// out.write("<h1>TESTTTTTTTT</h1>");
-
-			}*/
+			//prodRS = stmt.executeQuery(productQuery);
+			
 
 			bean.setRS(rs);
+			//bean.setProdRS(prodRS);
 
 		} catch (Exception ex) {
-			System.out.println("Log In failed: An Exception has occurred! "
+			System.out.println("Query failed: An Exception has occurred! "
 					+ ex);
 		} /*
 		 * finally { if (rs != null) { try { rs.close(); } catch (Exception e) {

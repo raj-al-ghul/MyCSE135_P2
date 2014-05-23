@@ -35,7 +35,7 @@ public class ControllerServlet extends HttpServlet {
 			user.setValid(true);
 			// user.setUserName(request.getParameter("un"));
 			// user.setPassword(request.getParameter("pw"));
-			
+			user = UserDAO.products(user);
 			user = UserDAO.first(user);
 
 			if (user.isValid()) {

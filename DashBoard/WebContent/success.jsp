@@ -111,12 +111,21 @@
 		</TABLE>
 
 		<TABLE BORDER="3" CELLPADDING="10" CELLSPACING="10">
-			<TD><h1>View by Customer:</h1>
-
+			<TD><h1>View by Customer:</h1> <%
+ 	int count = 0;
+ %>
 				<TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3">
 					<TD><b>Name:</b></TD>
-					<TD><b>State:</b></TD>
-					<TD><b>Total Sales:</b></TD>
+					<%
+						boolean moreProd;
+						while (moreProd = currentUser.prodRS.next()) {
+							out.write("<TD><b>" + currentUser.prodRS.getString("PROD_NAME")
+									+ "</b></TD>");
+							count++;
+						}
+						System.out.println("COUNT: " + count);
+					%>
+
 
 					<%
 						boolean more;
@@ -124,9 +133,16 @@
 							out.write("<TR>");
 							out.write("<TD>" + currentUser.rsBean.getString("USER_NAME")
 									+ "</TD>");
-							out.write("<TD>" + currentUser.rsBean.getString("USER_STATE")
-									+ "</TD>");
-							out.write("<TD>$$MONEY$$</TD>");
+
+							for (int i = 0; i < count; i++) {
+								out.write("<TD>" + i + "</TD>");
+							}
+
+							/*out.write("<TD>" + 0 + "</TD>");
+							out.write("<TD>" + 0 + "</TD>");
+							out.write("<TD>" + 0 + "</TD>");
+							out.write("<TD>" + 0 + "</TD>");
+							out.write("<TD>" + 0 + "</TD>");*/
 							out.write("</TR>");
 						}
 						currentUser = UserDAO.closeConn(currentUser);
@@ -138,7 +154,8 @@
 				</TABLE></TD>
 		</TABLE>
 		<center>
-			<input type="submit" value="Next10" style="height: 2em; width: 7em">
+			<input type="submit" value="Next 10 Products" style="height: 2em; width: 10em">
+			<input type="submit" value="Next 20 Names" style="height: 2em; width: 10em">
 		</center>
 	</form>
 
