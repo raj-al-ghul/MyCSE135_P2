@@ -1,6 +1,11 @@
 package DashboardPackage;
 
 import java.sql.*;
+/*select * from users join sales on users.id = sales.uid;*/
+
+/*select users.name, sales.uid, sales.pid, count(sales.pid) from sales, users  
+ *where users.id = sales.uid 
+ *group by users.name, uid, pid;*/
 
 public class UserDAO {
 	static Connection currentCon = null;
@@ -37,7 +42,7 @@ public class UserDAO {
 	
 	public static UserBean products(UserBean bean)
 	{
-		String productQuery = "select * from PRODUCTS";
+		String productQuery = "select * from products";
 		
 		try {
 			currentCon = ConnectionManager.getConnection();
@@ -60,7 +65,7 @@ public class UserDAO {
 	public static UserBean first(UserBean bean) {
 		//Statement stmt = null;
 
-		String searchQuery = "select * from THE_USER";
+		String searchQuery = "select * from users";
 		//String productQuery = "select * from PRODUCTS";
 		System.out.println("Query: " + searchQuery);
 		try {

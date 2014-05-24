@@ -119,7 +119,7 @@
 					<%
 						boolean moreProd;
 						while (moreProd = currentUser.prodRS.next()) {
-							out.write("<TD><b>" + currentUser.prodRS.getString("PROD_NAME")
+							out.write("<TD><b>" + currentUser.prodRS.getString("name")
 									+ "</b></TD>");
 							count++;
 						}
@@ -131,7 +131,7 @@
 						boolean more;
 						while (more = currentUser.rsBean.next()) {
 							out.write("<TR>");
-							out.write("<TD>" + currentUser.rsBean.getString("USER_NAME")
+							out.write("<TD>" + currentUser.rsBean.getString("name")
 									+ "</TD>");
 
 							for (int i = 0; i < count; i++) {
