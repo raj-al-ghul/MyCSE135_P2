@@ -35,25 +35,44 @@ public class ControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		int test;
+
+		test = Integer.parseInt(request.getParameter("st"));
+
+		System.out.println("WORKING? " + request.getParameter("st"));
 		try {
 			// UserBean user = new UserBean();
-			//user.setValid(true);
+			// user.setValid(true);
 			// user.setUserName(request.getParameter("un"));
 			// user.setPassword(request.getParameter("pw"));
+			switch (test) {
 
-			user = UserDAO.buildTemp(user);
-			user = UserDAO.name(user);
-			user = UserDAO.products(user);
-			user = UserDAO.viewTable(user);
+			case 0: {
+				System.out.println("CASE 0");
+				response.sendRedirect("view.jsp");
+				break;
+			}
+			case 1: {
+				System.out.println("CASE 1");
+				user = UserDAO.buildTemp(user);
+				user = UserDAO.name(user);
+				user = UserDAO.products(user);
+				user = UserDAO.viewTable(user);
 
-			if (user.isValid()) {
-				session = request.getSession(true);
-				session.setAttribute("currentSessionUser", user);
-				user.view = request.getParameter("view");
-				// System.out.println("IN CONT: " + user.view);
-				response.sendRedirect("success.jsp");
-			} else {
-				response.sendRedirect("error.jsp");
+				if (user.isValid()) {
+					session = request.getSession(true);
+					session.setAttribute("currentSessionUser", user);
+					user.view = request.getParameter("view");
+					// System.out.println("IN CONT: " + user.view);
+					response.sendRedirect("success.jsp");
+				} else {
+					response.sendRedirect("error.jsp");
+				}
+				break;
+			}
+			default: {
+				response.sendRedirect("view.jsp");
+			}
 			}
 
 		} catch (Throwable theException) {
