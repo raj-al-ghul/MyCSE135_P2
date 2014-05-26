@@ -3,7 +3,11 @@
   <display-name>DashBoard</display-name>
 
   <welcome-file-list>
-
+<listener>
+    <listener-class>
+        DashboardPackage.ControllerServlet
+    </listener-class>
+</listener>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
     <welcome-file>index.jsp</welcome-file>

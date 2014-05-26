@@ -1,0 +1,49 @@
+SELECT sales.uid, sum(sales.pid) as products_count FROM sales INNER JOIN users ON users.id = sales.uid GROUP BY users.id, users.name, sales.uid;
+
+SELECT users.name, sum(sales.pid) as products_count FROM sales INNER JOIN users ON users.id = sales.uid GROUP BY users.id, users.name, sales.uid;
+
+
+
+select * from users join sales on users.id = sales.uid;
+
+select * from users into #tmp_table join sales on users.id = sales.uid;
+
+insert into #temp(uid, pid, )
+
+
+SELECT Orders.CustomerID,
+    FORMAT (SUM(([Order Details].UnitPrice * [Order Details].Quantity) * 
+    (1 - [Order Details].Discount)), "$###,###.00") AS Total
+        FROM Orders, [Order Details]
+            WHERE Orders.OrderID = [Order Details].OrderID
+                GROUP BY Orders.CustomerID
+                    ORDER BY SUM(([Order Details].UnitPrice * 
+                        [Order Details].Quantity) * (1 - [Order Details].Discount)) DESC;
+
+
+
+SELECT sales.uid, SUM( sales.quantity) ) AS Total FROM sales, users WHERE sales.uid = users.id GROUP BY sales.uid;
+                    
+
+select count( products.pid = 1) from products;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+StringBuilder strB = "CREATE TABLE temp ( id SERIAL PRIMARY KEY, name TEXT, total FLOAT, ";
+for(int i = 0; i < prodNum; i++)
+{
+  strB.append("product" + i + " FLOAT, ");
+}
+
+srtB.append(" ); ");
+
+String str = strB.toString();
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+select users.name, sales.uid, sales.pid, count(sales.pid) from sales, users where users.id = sales.uid group by users.name, uid, pid;
+
+
+select users.name, sales.uid, sales.pid, count(sales.pid) from sales, users where users.id = sales.uid group by users.name, uid, pid;
+
+

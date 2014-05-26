@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=windows-1256"
-	pageEncoding="windows-1256"%>
+	pageEncoding="windows-1256" import="DashboardPackage.*"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,7 +9,11 @@
 <title>Project 2: Dashboard</title>
 </head>
 <body>
-
+	<%
+		UserBean currentUser = (UserBean) (session
+				.getAttribute("currentSessionUser"));
+		//currentUser = UserDAO.getCat(currentUser);
+	%>
 	<form action="ControllerServlet">
 
 		<TABLE BORDER="3" CELLPADDING="10" CELLSPACING="10">
@@ -21,9 +26,9 @@
 					<TD><b></>Select Category:</b></TD>
 					<TD><b>Execute Query:</b></TD>
 					<TR>
-						<TD><select>
+						<TD><select name="view">
 								<option value="default">Choose:</option>
-								<option value="cutomer">Customer</option>
+								<option value="customer">Customer</option>
 								<option value="state">State</option>
 						</select></TD>
 						<TD><select name="state" size="1">
@@ -88,6 +93,7 @@
 								<option value="age3">Over 65</option>
 						</select></TD>
 						<TD><select>
+						
 								<option value="prodAll">All</option>
 								<option value="prod0">Prod0</option>
 								<option value="prod1">Prod1</option>

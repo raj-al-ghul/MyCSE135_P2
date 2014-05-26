@@ -12,6 +12,11 @@
 	<%
 		UserBean currentUser = (UserBean) (session
 				.getAttribute("currentSessionUser"));
+
+		String selected = "default";
+		if (currentUser.view != null) {
+			selected = currentUser.view;
+		}
 	%>
 
 	<form action="ControllerServlet">
@@ -26,10 +31,18 @@
 					<TD><b></>Select Category:</b></TD>
 					<TD><b>Execute Query:</b></TD>
 					<TR>
-						<TD><select>
+						<TD><select name="view">
 								<option value="default">Choose:</option>
-								<option value="customer">Customer</option>
-								<option value="state">State</option>
+								<option
+									<%if (selected.equals("customer")) {
+				out.print("selected = \"selected\"");
+			}%>
+									value="customer">Customer</option>
+								<option
+									<%if (selected.equals("state")) {
+				out.print("selected = \"selected\"");
+			}%>
+									value="state">State</option>
 						</select></TD>
 						<TD><select name="state" size="1">
 								<option value="ALL">All</option>
@@ -131,8 +144,8 @@
 						boolean more;
 						while (more = currentUser.rsBean.next()) {
 							out.write("<TR>");
-							out.write("<TD>" + currentUser.rsBean.getString("name")
-									+ "</TD>");
+							String name = currentUser.rsBean.getString("name");
+							out.write("<TD>" + name + "</TD>");
 
 							for (int i = 0; i < count; i++) {
 								out.write("<TD>" + i + "</TD>");
@@ -145,6 +158,7 @@
 							out.write("<TD>" + 0 + "</TD>");*/
 							out.write("</TR>");
 						}
+
 						currentUser = UserDAO.closeConn(currentUser);
 					%>
 
@@ -154,8 +168,9 @@
 				</TABLE></TD>
 		</TABLE>
 		<center>
-			<input type="submit" value="Next 10 Products" style="height: 2em; width: 10em">
-			<input type="submit" value="Next 20 Names" style="height: 2em; width: 10em">
+			<input type="submit" value="Next 10 Products"
+				style="height: 2em; width: 10em"> <input type="submit"
+				value="Next 20 Names" style="height: 2em; width: 10em">
 		</center>
 	</form>
 

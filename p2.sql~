@@ -46,3 +46,9 @@ CREATE TABLE sales (
     price	INTEGER NOT NULL
 );
 
+CREATE TABLE temp (
+    id          SERIAL PRIMARY KEY,
+    uid         INTEGER,
+    pid         INTEGER,
+    
+);

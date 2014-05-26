@@ -1,0 +1,103 @@
+SELECT sales.uid, sum(sales.pid) as products_count FROM sales INNER JOIN users ON users.id = sales.uid GROUP BY users.id, users.name, sales.uid;
+
+SELECT users.name, sum(sales.pid) as products_count FROM sales INNER JOIN users ON users.id = sales.uid GROUP BY users.id, users.name, sales.uid;
+
+
+
+select * from users join sales on users.id = sales.uid;
+
+select * from users into #tmp_table join sales on users.id = sales.uid;
+
+insert into #temp(uid, pid, )
+
+
+SELECT Orders.CustomerID,
+    FORMAT (SUM(([Order Details].UnitPrice * [Order Details].Quantity) * 
+    (1 - [Order Details].Discount)), "$###,###.00") AS Total
+        FROM Orders, [Order Details]
+            WHERE Orders.OrderID = [Order Details].OrderID
+                GROUP BY Orders.CustomerID
+                    ORDER BY SUM(([Order Details].UnitPrice * 
+                        [Order Details].Quantity) * (1 - [Order Details].Discount)) DESC;
+
+
+
+SELECT sales.uid, SUM( sales.quantity) ) AS Total FROM sales, users WHERE sales.uid = users.id GROUP BY sales.uid;
+                    
+
+select count( products.pid = 1) from products;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+StringBuilder strB = "CREATE TABLE temp ( id SERIAL PRIMARY KEY, name TEXT, total FLOAT, ";
+for(int i = 0; i < prodNum; i++)
+{
+  strB.append("product" + i + " FLOAT, ");
+}
+
+srtB.append(" ); ");
+
+String str = strB.toString();
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+select users.name, sales.uid, sales.pid, count(sales.pid) from sales, users where users.id = sales.uid group by users.name, uid, pid;
+
+
+select users.name, sales.uid, sales.pid, count(sales.pid) from sales, users where users.id = sales.uid group by users.name, uid, pid;
+
+DROP TABLE IF EXISTS temp_table;
+CREATE TABLE temp_table AS (select users.name, sales.uid, sales.pid, count(sales.pid) from sales, users where users.id = sales.uid group by users.name, uid, pid);
+
+
+
+DROP TABLE IF EXISTS temp_table; CREATE TABLE temp_table AS (select users.name, sales.uid, sales.pid, count(sales.pid) from sales, users where users.id = sales.uid group by users.name, uid, pid);
+
+
+
+CREATE TABLE sales (
+    id          SERIAL PRIMARY KEY,
+    uid         INTEGER REFERENCES users (id) ON DELETE CASCADE,
+    pid         INTEGER REFERENCES products (id) ON DELETE CASCADE,
+    quantity    INTEGER NOT NULL,
+    price	INTEGER NOT NULL
+);
+
+
+//////////////////////////////////////////
+test=# select users.name, sales.uid, sales.pid, sum(sales.quantity * sales.price) from sales, users where users.id = sales.uid group by users.name, uid, pid;
+ name  | uid | pid | sum 
+-------+-----+-----+-----
+ user0 |   1 |   4 |   4
+ user0 |   1 |   1 |   2
+ user2 |   3 |   3 |   1
+ user2 |   3 |   1 |   1
+ user1 |   2 |   2 |   1
+ user1 |   2 |   1 |   1
+(6 rows)
+
+
+test=# select * from sales;
+ id | uid | pid | quantity | price 
+----+-----+-----+----------+-------
+  1 |   1 |   1 |        1 |     1
+  2 |   2 |   2 |        1 |     1
+  3 |   3 |   3 |        1 |     1
+  4 |   1 |   1 |        1 |     1
+  5 |   2 |   1 |        1 |     1
+  6 |   3 |   1 |        1 |     1
+(6 rows)
+
+
+select users.name, sales.uid, sales.pid, sum(sales.quantity * sales.price) from sales, users where users.id = sales.uid group by users.name, uid, pid;
+
+INSERT INTO sales (uid, pid, quantity,price) VALUES(1, 4 , 2, 2);
+
+///////////////////////////////////////////
+SELECT pid, sum(total) FROM temp_table WHERE name = 'user0' AND pid = 1;
+
+
+
+
+
+
