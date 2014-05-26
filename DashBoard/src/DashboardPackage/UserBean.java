@@ -45,6 +45,7 @@ public class UserBean {
 	}
 
 	public void setCatRS(ResultSet catRS) {
+		System.out.println("SAVING RS CAT");
 		rsCat = catRS;
 		
 	}

@@ -49,11 +49,13 @@ public class ControllerServlet extends HttpServlet {
 
 			case 0: {
 				System.out.println("CASE 0");
+				user = UserDAO.getCat(user);
 				response.sendRedirect("view.jsp");
 				break;
 			}
 			case 1: {
 				System.out.println("CASE 1");
+				user = UserDAO.getCat(user); //called each time a page is refreshed
 				user = UserDAO.buildTemp(user);
 				user = UserDAO.name(user);
 				user = UserDAO.products(user);
@@ -63,7 +65,7 @@ public class ControllerServlet extends HttpServlet {
 					session = request.getSession(true);
 					session.setAttribute("currentSessionUser", user);
 					user.view = request.getParameter("view");
-					// System.out.println("IN CONT: " + user.view);
+					
 					response.sendRedirect("success.jsp");
 				} else {
 					response.sendRedirect("error.jsp");
@@ -71,6 +73,7 @@ public class ControllerServlet extends HttpServlet {
 				break;
 			}
 			default: {
+				System.out.println("DEFAULT");
 				response.sendRedirect("view.jsp");
 			}
 			}

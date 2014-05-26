@@ -45,17 +45,14 @@ public class UserDAO {
 
 	public static UserBean getCat(UserBean bean) {
 		String str = "select * from categories";
+		System.out.println("IN CAT QUERY");
 
-		if(bean == null)
-		{
-			System.out.println("nul bean");
-		}
 		try {
 			currentCon = ConnectionManager.getConnection();
 			stmt = currentCon.createStatement();
 			System.out.println("CAT QUERY: " + str);
 			catRS = stmt.executeQuery(str);
-
+			System.out.println("RETURN RS CAT");
 			bean.setCatRS(catRS);
 
 		} catch (Exception ex) {
