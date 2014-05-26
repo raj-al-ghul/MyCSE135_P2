@@ -113,7 +113,8 @@
 								<option value="prod3">Prod3</option>
 						</select></TD>
 						<TD><center>
-								<input type="submit" value="Run" style="height: 2em; width: 7em">
+								<input type="submit" value="Run" style="height: 2em; width: 7em"><input
+									type="hidden" name="st" value="1">
 							</center></TD>
 					</TR>
 

@@ -34,13 +34,16 @@ public class ControllerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		session = request.getSession(true);
+		session.setAttribute("currentSessionUser", user);
 		int test;
 
 		test = Integer.parseInt(request.getParameter("st"));
 
 		System.out.println("WORKING? " + request.getParameter("st"));
 		try {
+			session = request.getSession(true);
+			session.setAttribute("currentSessionUser", user);
 			// UserBean user = new UserBean();
 			// user.setValid(true);
 			// user.setUserName(request.getParameter("un"));
@@ -62,8 +65,7 @@ public class ControllerServlet extends HttpServlet {
 				user = UserDAO.viewTable(user);
 
 				if (user.isValid()) {
-					session = request.getSession(true);
-					session.setAttribute("currentSessionUser", user);
+
 					user.view = request.getParameter("view");
 					
 					response.sendRedirect("success.jsp");
