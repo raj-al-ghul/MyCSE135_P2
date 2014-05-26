@@ -107,6 +107,20 @@
 						</select></TD>
 						<TD><select>
 								<option value="prodAll">All</option>
+								<%
+									System.out.println("PARSE CAT QUERY");
+									boolean moreCat;
+									int i = 0;
+									if (currentUser == null) {
+										System.out.println("NULL BEAN");
+									} else {
+										System.out.println("NOT NULL");
+										while (moreCat = currentUser.rsCat.next()) {
+											out.write("<option value=\"cat"+i+"\">"
+													+ currentUser.rsCat.getString("name") + "</option>");
+										}
+									}
+								%>
 								<option value="prod0">Prod0</option>
 								<option value="prod1">Prod1</option>
 								<option value="prod2">Prod2</option>
@@ -148,7 +162,7 @@
 							String name = currentUser.rsBean.getString("name");
 							out.write("<TD>" + name + "</TD>");
 
-							for (int i = 0; i < count; i++) {
+							for (i = 0; i < count; i++) {
 								out.write("<TD>" + i + "</TD>");
 							}
 

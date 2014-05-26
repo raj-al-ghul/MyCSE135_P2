@@ -103,8 +103,9 @@
 									} else {
 										System.out.println("NOT NULL");
 										while (moreCat = currentUser.rsCat.next()) {
-											out.write("<option value=\"cat\">"
+											out.write("<option value=\"cat"+i+"\">"
 													+ currentUser.rsCat.getString("name") + "</option>");
+											i++;
 										}
 									}
 								%>
