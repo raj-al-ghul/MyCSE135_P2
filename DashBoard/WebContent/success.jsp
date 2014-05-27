@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=windows-1256"
-	pageEncoding="windows-1256" import="DashboardPackage.*"%>
+	pageEncoding="windows-1256" import="DashboardPackage.*"
+	import="java.util.*"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -116,7 +117,7 @@
 									} else {
 										System.out.println("NOT NULL");
 										while (moreCat = currentUser.rsCat.next()) {
-											out.write("<option value=\"cat"+i+"\">"
+											out.write("<option value=\"cat" + i + "\">"
 													+ currentUser.rsCat.getString("name") + "</option>");
 										}
 									}
@@ -146,9 +147,12 @@
 					<TD><b>Name:</b></TD>
 					<%
 						boolean moreProd;
+						ArrayList<String> pid = new ArrayList<String>();
+
 						while (moreProd = currentUser.prodRS.next()) {
 							out.write("<TD><b>" + currentUser.prodRS.getString("name")
 									+ "</b></TD>");
+							pid.add(currentUser.prodRS.getString("id"));
 							count++;
 						}
 						System.out.println("COUNT: " + count);
@@ -157,20 +161,18 @@
 
 					<%
 						boolean more;
-						while (more = currentUser.rsBean.next()) {
+						while (more = currentUser.rsAllTemp.next()) {
 							out.write("<TR>");
-							String name = currentUser.rsBean.getString("name");
+							String name = currentUser.rsAllTemp.getString("name");
 							out.write("<TD>" + name + "</TD>");
 
 							for (i = 0; i < count; i++) {
-								out.write("<TD>" + i + "</TD>");
+								out.write("<TD>"
+										+ currentUser.rsAllTemp.getString("prod"
+												+ pid.get(i) ) + "</TD>");
+
 							}
 
-							/*out.write("<TD>" + 0 + "</TD>");
-							out.write("<TD>" + 0 + "</TD>");
-							out.write("<TD>" + 0 + "</TD>");
-							out.write("<TD>" + 0 + "</TD>");
-							out.write("<TD>" + 0 + "</TD>");*/
 							out.write("</TR>");
 						}
 
@@ -192,7 +194,20 @@
 
 
 
-
+	<TABLE BORDER="3" CELLPADDING="10" CELLSPACING="10">
+		<TD>
+			<TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3">
+				<TD>C1 R1 Table</TD>
+				<TD>C2 R1 Table</TD>
+				<TR>
+					<TD>Row 2??&nbsp;Table</TD>
+					<TD>Row 2 HERE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Table</TD>
+				</TR>
+			</TABLE>
+		</TD>
+		<TD>The cell next to this one has a smaller table inside of it, a
+			table inside a table.</TD>
+	</TABLE>
 
 
 

@@ -15,6 +15,7 @@ public class UserDAO {
 	static ResultSet tempRS = null;
 	static Statement stmt = null;
 	static ResultSet catRS = null;
+	static ResultSet allTempRS = null;
 	private static StringBuilder prodString = new StringBuilder();
 	private static int prodCount = 0;
 
@@ -167,8 +168,9 @@ public class UserDAO {
 		StringBuilder query = new StringBuilder();
 		query.append("INSERT INTO temp(name, uid, state " + prodString
 				+ " ) VALUES( ");
-
+		prodString = null;
 		String tempStr = query.toString();
+		System.out.println("QUERY: " + tempStr);
 		try {
 			// name, uid, state, n*products
 			Connection currentConTemp = ConnectionManager.getConnection();
@@ -188,6 +190,7 @@ public class UserDAO {
 				for (int i = 0; i < prodCount; i++) {
 					temp = temp + ", 0.0";
 				}
+				//prodCount = 0;
 				temp = temp + ")";
 				System.out.println(temp);
 				stmt.executeUpdate(temp);
@@ -196,6 +199,7 @@ public class UserDAO {
 				bean = updateTable(bean);
 
 			}
+			prodCount = 0;  
 
 		} catch (Exception ex) {
 			System.out
@@ -211,11 +215,13 @@ public class UserDAO {
 				+ "from sales, users "
 				+ "where users.id = sales.uid "
 				+ "group by users.name, uid, pid;";
-		
-		/*query = "UPDATE temp SET prod" + getString("pid") + " = "
-				+ getString("sum") + " WHERE uid = " + getString("uid");*/
+
+		/*
+		 * query = "UPDATE temp SET prod" + getString("pid") + " = " +
+		 * getString("sum") + " WHERE uid = " + getString("uid");
+		 */
 		try {
-			
+
 			Connection currentConTemp = ConnectionManager.getConnection();
 			Statement stmtTemp = currentConTemp.createStatement();
 
@@ -225,15 +231,16 @@ public class UserDAO {
 
 			while (more = result.next()) {
 				String temp = new String();
-				
+
 				temp = "UPDATE temp SET prod" + result.getString("pid") + " = "
-						+ result.getString("sum") + " WHERE uid = " + result.getString("uid");
-				
+						+ result.getString("sum") + " WHERE uid = "
+						+ result.getString("uid");
+
 				System.out.println(temp);
 				stmt.executeUpdate(temp);
 				System.out.println("TABLE UPDATED");
 
-				//bean = updateTable(bean);
+				bean = getAllTemp(bean);
 
 			}
 
@@ -245,7 +252,24 @@ public class UserDAO {
 		return bean;
 	}
 
-	public static UserBean insertTemp(UserBean bean) {
+	public static UserBean getAllTemp(UserBean bean) {
+
+		String query = "SELECT * FROM temp";
+		System.out.println("Query: " + query);
+		try {
+			currentCon = ConnectionManager.getConnection();
+			System.out.println("IN GET ALL TEMP");
+			stmt = currentCon.createStatement();
+
+			allTempRS = stmt.executeQuery(query);
+			// prodRS = stmt.executeQuery(productQuery);
+
+			bean.setAllTempRS(allTempRS);
+
+		} catch (Exception ex) {
+			System.out
+					.println("Query failed: An Exception has occurred! " + ex);
+		}
 
 		return bean;
 	}

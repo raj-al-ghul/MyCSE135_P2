@@ -9,15 +9,14 @@ public class UserBean {
 	public ResultSet tempRS;
 	public String view;
 	public ResultSet rsCat;
-	
-	public UserBean()
-	{
+	public ResultSet rsAllTemp;
+
+	public UserBean() {
 		System.out.println("BEAN CALLED");
 	}
-	
-	public void setTempRS(ResultSet rs)
-	{
-        tempRS = rs;		
+
+	public void setTempRS(ResultSet rs) {
+		tempRS = rs;
 	}
 
 	public void setProdRS(ResultSet rs) {
@@ -47,6 +46,11 @@ public class UserBean {
 	public void setCatRS(ResultSet catRS) {
 		System.out.println("SAVING RS CAT");
 		rsCat = catRS;
-		
+
+	}
+
+	public void setAllTempRS(ResultSet rs) {
+		rsAllTemp = rs;
+
 	}
 }
