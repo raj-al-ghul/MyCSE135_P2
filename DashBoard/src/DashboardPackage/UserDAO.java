@@ -121,9 +121,10 @@ public class UserDAO {
 	}
 
 	public static UserBean buildTemp(UserBean bean) {
+		//prodString = new StringBuilder();
 		StringBuilder productQuery = new StringBuilder();
 		productQuery.append("select * from products");
-
+		System.out.println(productQuery.toString());
 		try {
 			currentCon = ConnectionManager.getConnection();
 			stmt = currentCon.createStatement();
@@ -136,9 +137,11 @@ public class UserDAO {
 			strB.append("DROP TABLE IF EXISTS temp; ");
 			strB.append("CREATE TABLE temp ( id SERIAL PRIMARY KEY, name TEXT, uid INTEGER, state TEXT ");
 			while (more = prod.next()) {
-				System.out.println("in while");
+				System.out.println("strB :");
 				String product = prod.getString("id");
+				System.out.println("product " + product);
 				prodString.append(", prod" + product);
+				//System.out.println("String: " + prodString.toString());
 				// prodString is used later in fillTable
 				strB.append(", prod" + product + " FLOAT ");
 				prodCount++;
@@ -168,7 +171,7 @@ public class UserDAO {
 		StringBuilder query = new StringBuilder();
 		query.append("INSERT INTO temp(name, uid, state " + prodString
 				+ " ) VALUES( ");
-		prodString = null;
+		prodString.delete(0, prodString.length());
 		String tempStr = query.toString();
 		System.out.println("QUERY: " + tempStr);
 		try {
@@ -190,7 +193,7 @@ public class UserDAO {
 				for (int i = 0; i < prodCount; i++) {
 					temp = temp + ", 0.0";
 				}
-				//prodCount = 0;
+				// prodCount = 0;
 				temp = temp + ")";
 				System.out.println(temp);
 				stmt.executeUpdate(temp);
@@ -199,7 +202,7 @@ public class UserDAO {
 				bean = updateTable(bean);
 
 			}
-			prodCount = 0;  
+			prodCount = 0;
 
 		} catch (Exception ex) {
 			System.out
