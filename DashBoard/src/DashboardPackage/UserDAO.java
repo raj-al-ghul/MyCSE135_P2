@@ -193,6 +193,48 @@ public class UserDAO {
 				stmt.executeUpdate(temp);
 				System.out.println("TABLE UPDATED");
 
+				bean = updateTable(bean);
+
+			}
+
+		} catch (Exception ex) {
+			System.out
+					.println("Query failed: An Exception has occurred! " + ex);
+		}
+
+		return bean;
+	}
+
+	private static UserBean updateTable(UserBean bean) {
+
+		String users = "select users.name, sales.uid, sales.pid, sum(sales.quantity * sales.price) "
+				+ "from sales, users "
+				+ "where users.id = sales.uid "
+				+ "group by users.name, uid, pid;";
+		
+		/*query = "UPDATE temp SET prod" + getString("pid") + " = "
+				+ getString("sum") + " WHERE uid = " + getString("uid");*/
+		try {
+			
+			Connection currentConTemp = ConnectionManager.getConnection();
+			Statement stmtTemp = currentConTemp.createStatement();
+
+			ResultSet result = stmtTemp.executeQuery(users);
+
+			boolean more;
+
+			while (more = result.next()) {
+				String temp = new String();
+				
+				temp = "UPDATE temp SET prod" + result.getString("pid") + " = "
+						+ result.getString("sum") + " WHERE uid = " + result.getString("uid");
+				
+				System.out.println(temp);
+				stmt.executeUpdate(temp);
+				System.out.println("TABLE UPDATED");
+
+				//bean = updateTable(bean);
+
 			}
 
 		} catch (Exception ex) {
