@@ -15,6 +15,8 @@ public class UserDAO {
 	static ResultSet tempRS = null;
 	static Statement stmt = null;
 	static ResultSet catRS = null;
+	private static StringBuilder prodString = new StringBuilder();
+	private static int prodCount = 0;
 
 	public static UserBean closeConn(UserBean bean) {
 
@@ -131,19 +133,67 @@ public class UserDAO {
 
 			StringBuilder strB = new StringBuilder();
 			strB.append("DROP TABLE IF EXISTS temp; ");
-			strB.append("CREATE TABLE temp ( id SERIAL PRIMARY KEY, name TEXT, state TEXT, total FLOAT, age INTEGER ");
+			strB.append("CREATE TABLE temp ( id SERIAL PRIMARY KEY, name TEXT, uid INTEGER, state TEXT ");
 			while (more = prod.next()) {
 				System.out.println("in while");
-				strB.append(", " + prod.getString("id") + " FLOAT ");
+				String product = prod.getString("id");
+				prodString.append(", prod" + product);
+				// prodString is used later in fillTable
+				strB.append(", prod" + product + " FLOAT ");
+				prodCount++;
 			}
 
 			strB.append(" )");
 			String str = strB.toString();
+			System.out.println("Query: " + str);
 
 			stmt.executeUpdate(str);
 			System.out.println("TABLE CREATED");
 
 			// bean.setProdRS(prodRS);
+			bean = fillTable(bean);
+
+		} catch (Exception ex) {
+			System.out
+					.println("Query failed: An Exception has occurred! " + ex);
+		}
+
+		return bean;
+	}
+
+	private static UserBean fillTable(UserBean bean) {
+
+		String users = "SELECT * FROM users";
+		StringBuilder query = new StringBuilder();
+		query.append("INSERT INTO temp(name, uid, state " + prodString
+				+ " ) VALUES( ");
+
+		String tempStr = query.toString();
+		try {
+			// name, uid, state, n*products
+			Connection currentConTemp = ConnectionManager.getConnection();
+			Statement stmtTemp = currentConTemp.createStatement();
+
+			ResultSet result = stmtTemp.executeQuery(users);
+
+			boolean more;
+
+			while (more = result.next()) {
+				String temp = new String();
+				temp = tempStr;
+				temp = temp
+						+ ("'" + result.getString("name") + "', "
+								+ result.getString("id") + ", '"
+								+ result.getString("state") + "' ");
+				for (int i = 0; i < prodCount; i++) {
+					temp = temp + ", 0.0";
+				}
+				temp = temp + ")";
+				System.out.println(temp);
+				stmt.executeUpdate(temp);
+				System.out.println("TABLE UPDATED");
+
+			}
 
 		} catch (Exception ex) {
 			System.out
