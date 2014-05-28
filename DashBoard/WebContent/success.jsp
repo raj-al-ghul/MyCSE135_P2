@@ -363,7 +363,7 @@
 						</select></TD>
 
 						<TD><center>
-					
+
 								<input type="submit" value="Run" style="height: 2em; width: 7em"><input
 									type="hidden" name="st" value="1">
 							</center></TD>
@@ -376,10 +376,26 @@
 		</TABLE>
 
 		<TABLE BORDER="3" CELLPADDING="10" CELLSPACING="10">
-			<TD><h1>View by Customer:</h1>
 
+			<%
+				String header;
+				if (selectedView.equals("customer")) {
+					header = "Customer";
+				} else {
+					header = "State";
+				}
+			%>
+			<TD><h1>
+					View by
+					<%
+				out.write(header);
+			%>:
+				</h1>
 				<TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3">
-					<TD><b>Name:</b></TD>
+					<TD><b> <%
+ 	out.write(header);
+ %>:
+					</b></TD>
 					<%
 						currentUser = UserDAO.products(currentUser);
 						int count = 0;
@@ -421,7 +437,12 @@
 						while (index < 20 && (more = currentUser.rs.next())) {
 							index++;
 							out.write("<TR>");
-							String name = currentUser.rs.getString("name");
+							String name;
+							if (currentUser.view.equals("customer")) {
+								name = currentUser.rs.getString("name");
+							} else {
+								name = currentUser.rs.getString("state");
+							}
 							out.write("<TD>" + name + "</TD>");
 
 							for (i = 0; i < count && i < 10; i++) {

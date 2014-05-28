@@ -73,8 +73,8 @@ public class ControllerServlet extends HttpServlet {
 					user.age = request.getParameter("age");
 					user.category = request.getParameter("category");
 
-					user.prodCurr += 10;
-					user.viewCurr += 20;
+					user.prodCurr = 10;
+					user.viewCurr = 20;
 
 					response.sendRedirect("success.jsp");
 				} else {
