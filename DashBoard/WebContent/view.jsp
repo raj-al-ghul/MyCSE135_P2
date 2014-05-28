@@ -110,10 +110,6 @@
 									}
 								%>
 
-								<option value="prod0">Prod0</option>
-								<option value="prod1">Prod1</option>
-								<option value="prod2">Prod2</option>
-								<option value="prod3">Prod3</option>
 						</select></TD>
 						<TD><center>
 								<input type="submit" value="Run" style="height: 2em; width: 7em"><input

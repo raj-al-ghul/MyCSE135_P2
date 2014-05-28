@@ -74,7 +74,23 @@ public class ControllerServlet extends HttpServlet {
 				}
 				break;
 			}
+			case 2:
+			{
+				//user = UserDAO.products(user);
+				user = UserDAO.getAllTemp(user);
+				response.sendRedirect("Next10.jsp");
+				break;
+			}
+			case 3:
+			{
+				user = UserDAO.products(user);
+				
+				response.sendRedirect("Next20.jsp");
+				break;
+			}
 			default: {
+				
+				
 				System.out.println("DEFAULT");
 				response.sendRedirect("view.jsp");
 			}

@@ -18,7 +18,11 @@ public class UserDAO {
 	static ResultSet allTempRS = null;
 	private static StringBuilder prodString = new StringBuilder();
 	private static int prodCount = 0;
+	private static int next10 = 0;
 
+	//public static void closeConn()
+	
+	
 	public static UserBean closeConn(UserBean bean) {
 
 		if (rs != null) {
@@ -30,10 +34,10 @@ public class UserDAO {
 		}
 		if (stmt != null) {
 			try {
-				stmt.close();
+				stmt.close(); 
 			} catch (Exception e) {
 			}
-			stmt = null;
+			stmt = null; 
 		}
 		if (currentCon != null) {
 			try {
@@ -63,13 +67,6 @@ public class UserDAO {
 					.println("Query failed: An Exception has occurred! " + ex);
 		}
 
-		return bean;
-	}
-
-	public static UserBean getData(UserBean bean, String name, String product) {
-		StringBuilder query = new StringBuilder();
-		query.append("SELECT t.pid, t.sum(t.total) FROM temp_table t WHERE temp_table.name = '"
-				+ name + "' AND temp_table.pid = " + product);
 		return bean;
 	}
 
@@ -255,9 +252,10 @@ public class UserDAO {
 		return bean;
 	}
 
+	
 	public static UserBean getAllTemp(UserBean bean) {
 
-		String query = "SELECT * FROM temp";
+		String query = "SELECT * FROM temp order by name offset " + next10 + " limit 10";
 		System.out.println("Query: " + query);
 		try {
 			currentCon = ConnectionManager.getConnection();
@@ -265,6 +263,7 @@ public class UserDAO {
 			stmt = currentCon.createStatement();
 
 			allTempRS = stmt.executeQuery(query);
+			next10 = next10 + 10;
 			// prodRS = stmt.executeQuery(productQuery);
 
 			bean.setAllTempRS(allTempRS);
@@ -277,6 +276,10 @@ public class UserDAO {
 		return bean;
 	}
 
+	public static UserBean get10Again(UserBean bean)
+	{
+		return bean;
+	}
 	public static UserBean name(UserBean bean) {
 		// Statement stmt = null;
 

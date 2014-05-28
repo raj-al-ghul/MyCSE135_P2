@@ -1,6 +1,7 @@
 package DashboardPackage;
 
 import java.sql.ResultSet;
+import java.util.*;
 
 public class UserBean {
 	public boolean valid = true;
@@ -10,6 +11,9 @@ public class UserBean {
 	public String view;
 	public ResultSet rsCat;
 	public ResultSet rsAllTemp;
+	public ArrayList<String> strArr = new ArrayList<String>();
+	public int prodIndex = 0;
+	public int prodCount = 0;
 
 	public UserBean() {
 		System.out.println("BEAN CALLED");

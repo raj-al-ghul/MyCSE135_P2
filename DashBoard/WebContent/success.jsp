@@ -122,10 +122,7 @@
 										}
 									}
 								%>
-								<option value="prod0">Prod0</option>
-								<option value="prod1">Prod1</option>
-								<option value="prod2">Prod2</option>
-								<option value="prod3">Prod3</option>
+
 						</select></TD>
 						<TD><center>
 								<input type="submit" value="Run" style="height: 2em; width: 7em"><input
@@ -140,43 +137,56 @@
 		</TABLE>
 
 		<TABLE BORDER="3" CELLPADDING="10" CELLSPACING="10">
-			<TD><h1>View by Customer:</h1> <%
- 	int count = 0;
- %>
+			<TD><h1>View by Customer:</h1>
+
 				<TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3">
 					<TD><b>Name:</b></TD>
 					<%
+						int count = 0;
 						boolean moreProd;
-						ArrayList<String> pid = new ArrayList<String>();
+						while(moreProd = currentUser.prodRS.next())
+						{
+							currentUser.prodCount++;
+						}
+	
+						currentUser = UserDAO.products(currentUser);
 
-						while (moreProd = currentUser.prodRS.next()) {
+						String[] strArr = new String[10];
+						
+						while (count < 10 && (moreProd = currentUser.prodRS.next())) {
 							out.write("<TD><b>" + currentUser.prodRS.getString("name")
 									+ "</b></TD>");
-							pid.add(currentUser.prodRS.getString("id"));
+							//pid.add(currentUser.prodRS.getString("id"));
+							//currentUser.strArr.add(currentUser.prodRS.getString("id"));
+							strArr[count] = "prod" + currentUser.prodRS.getString("id");
 							count++;
+							
 						}
-						System.out.println("COUNT: " + count);
 					%>
 
 
 					<%
-						boolean more;
-						while (more = currentUser.rsAllTemp.next()) {
+						boolean more = true;
+						int index = 0;
+						while (index < 20 && (more = currentUser.rsAllTemp.next())) {
+							index++;
 							out.write("<TR>");
 							String name = currentUser.rsAllTemp.getString("name");
 							out.write("<TD>" + name + "</TD>");
 
-							for (i = 0; i < count; i++) {
+							for (i = 0; i < count && i < 10; i++) {
 								out.write("<TD>"
-										+ currentUser.rsAllTemp.getString("prod"
-												+ pid.get(i) ) + "</TD>");
+										+ currentUser.rsAllTemp.getString(strArr[i])
+										+ "</TD>");
 
 							}
 
 							out.write("</TR>");
 						}
 
-						currentUser = UserDAO.closeConn(currentUser);
+						if (more == false) {
+							//currentUser = UserDAO.closeConn(currentUser);
+						}
 					%>
 
 
@@ -184,30 +194,29 @@
 
 				</TABLE></TD>
 		</TABLE>
-		<center>
-			<input type="submit" value="Next 10 Products"
-				style="height: 2em; width: 10em"> <input type="submit"
-				value="Next 20 Names" style="height: 2em; width: 10em">
-		</center>
+
 	</form>
 
+	<center>
 
+		<form action="ControllerServlet">
+			<input type="submit" value="Next 10 Products"
+				style="height: 2em; width: 10em"><input type="hidden"
+				name="st" value="2">
+		</form>
+		<%
+			if (more == true) {
+		%>
+		<form action="ControllerServlet">
+			<input type="submit" value="Next 20 Names"
+				style="height: 2em; width: 10em"><input type="hidden"
+				name="st" value="3">
+		</form>
+		<%
+			}
+		%>
+	</center>
 
-
-	<TABLE BORDER="3" CELLPADDING="10" CELLSPACING="10">
-		<TD>
-			<TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3">
-				<TD>C1 R1 Table</TD>
-				<TD>C2 R1 Table</TD>
-				<TR>
-					<TD>Row 2??&nbsp;Table</TD>
-					<TD>Row 2 HERE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Table</TD>
-				</TR>
-			</TABLE>
-		</TD>
-		<TD>The cell next to this one has a smaller table inside of it, a
-			table inside a table.</TD>
-	</TABLE>
 
 
 
