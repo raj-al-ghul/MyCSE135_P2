@@ -26,7 +26,7 @@ public class UserDAO {
 	public static UserBean buildTemp(UserBean bean) {
 		// prodString = new StringBuilder();
 		StringBuilder productQuery = new StringBuilder();
-		productQuery.append("select * from products");
+		productQuery.append("select * from products where 1 = 1 ");//cat
 		System.out.println(productQuery.toString());
 		try {
 			currentCon = ConnectionManager.getConnection();
@@ -73,7 +73,7 @@ public class UserDAO {
 	public static UserBean fillTable(UserBean bean) {
 
 		// get all the users, and insert into the table one at a time with 0's.
-		String users = "SELECT * FROM users";
+		String users = "SELECT * FROM users";//state, age
 		StringBuilder query = new StringBuilder();
 		query.append("INSERT INTO temp(name, uid, state " + prodString
 				+ " ) VALUES( ");
@@ -159,11 +159,11 @@ public class UserDAO {
 	}
 
 	public static UserBean updateTable(UserBean bean) {
-
+//state, age, cat(id),
 		String users = "select users.name, sales.uid, sales.pid, sum(sales.quantity * sales.price) "
-				+ "from sales, users "
-				+ "where users.id = sales.uid "
-				+ "group by users.name, uid, pid;";
+				+ "from sales, users, products "
+				+ "where users.id = sales.uid "//add var
+				+ "group by users.name, sales.uid, sales.pid;";
 
 		/*
 		 * query = "UPDATE temp SET prod" + getString("pid") + " = " +
@@ -267,7 +267,7 @@ public class UserDAO {
 	// ////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static UserBean products(UserBean bean) {
 		StringBuilder productQuery = new StringBuilder();
-		productQuery.append("select * from products");
+		productQuery.append("select * from products"); //cat
 
 		try {
 			currentCon = ConnectionManager.getConnection();
