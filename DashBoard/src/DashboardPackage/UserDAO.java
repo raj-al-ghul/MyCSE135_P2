@@ -19,8 +19,9 @@ public class UserDAO {
 	private static Connection updateTableCon;
 	private static Statement updateTableSTMT;
 	private static ResultSet updateTableRS;
-	////////////////////////
+	public static int next20 = 0;
 
+	// //////////////////////
 
 	public static UserBean buildTemp(UserBean bean) {
 		// prodString = new StringBuilder();
@@ -84,7 +85,7 @@ public class UserDAO {
 			currentConTemp = ConnectionManager.getConnection();
 			stmtTemp = currentConTemp.createStatement();
 
-		    result = stmtTemp.executeQuery(users);
+			result = stmtTemp.executeQuery(users);
 
 			boolean more;
 
@@ -113,7 +114,7 @@ public class UserDAO {
 			System.out
 					.println("Fill Table Query failed: An Exception has occurred! "
 							+ ex);
-		}finally {
+		} finally {
 			if (result != null) {
 				try {
 					result.close();
@@ -180,9 +181,9 @@ public class UserDAO {
 			while (more = updateTableRS.next()) {
 				String temp = new String();
 
-				temp = "UPDATE temp SET prod" + updateTableRS.getString("pid") + " = "
-						+ updateTableRS.getString("sum") + " WHERE uid = "
-						+ updateTableRS.getString("uid");
+				temp = "UPDATE temp SET prod" + updateTableRS.getString("pid")
+						+ " = " + updateTableRS.getString("sum")
+						+ " WHERE uid = " + updateTableRS.getString("uid");
 
 				// System.out.println(temp);
 				// stmt.executeUpdate(temp);
@@ -194,8 +195,9 @@ public class UserDAO {
 
 		} catch (Exception ex) {
 			System.out
-					.println("Update Table Query failed: An Exception has occurred! " + ex);
-		}finally {
+					.println("Update Table Query failed: An Exception has occurred! "
+							+ ex);
+		} finally {
 			if (result != null) {
 				try {
 					result.close();
@@ -222,8 +224,7 @@ public class UserDAO {
 		return bean;
 	}
 
-	public static void executeTableUpdate(String str)
-	{
+	public static void executeTableUpdate(String str) {
 		try {
 			currentCon = ConnectionManager.getConnection();
 			stmt = currentCon.createStatement();
@@ -238,6 +239,31 @@ public class UserDAO {
 		}
 		closeConn();
 	}
+
+	public static UserBean get20FromTemp(UserBean bean) {
+
+		String query = "SELECT * FROM temp order by name offset " + next20
+				+ " limit 20";
+		
+		System.out.println("Query: " + query);
+		try {
+			currentCon = ConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+
+			rs = stmt.executeQuery(query);
+			next20 = next20 + 20;
+
+			bean.rs = rs;
+
+		} catch (Exception ex) {
+			System.out
+					.println("Get20 From Temp Query failed: An Exception has occurred! " + ex);
+		}
+		//closeConn();
+		
+		return bean;
+	}
+
 	// ////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static UserBean products(UserBean bean) {
 		StringBuilder productQuery = new StringBuilder();
@@ -256,7 +282,7 @@ public class UserDAO {
 			System.out
 					.println("Query failed: An Exception has occurred! " + ex);
 		}
-		
+
 		return bean;
 	}
 

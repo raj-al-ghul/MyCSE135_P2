@@ -9,13 +9,54 @@ public class UserBean {
 	public ResultSet rsBean;
 	public ResultSet prodRS;
 	public ResultSet tempRS;
-	public String view;
 	public ResultSet rsCat;
 	public ResultSet rsAllTemp;
 	public ArrayList<String> strArr = new ArrayList<String>();
 	public int prodIndex = 0;
 	public int prodCount = 0;
-	
+
+	public String view = "customer";
+	public String state = "default";
+	public String age = "default";
+	public String category = "default";
+
+	public int prodTot = 15;
+	public int viewTot = 25;
+
+	public int prodCurr = 0;
+	public int viewCurr = 0;
+
+	public String makeStrings() {
+		String str = "";
+
+		if (!this.state.equals("default")) {
+			str += " AND state = " + this.state;
+		}
+
+		if (this.age.equals("age0")) {
+			str += " AND age BETWEEN 12 AND 18";
+		}
+
+		else if (this.age.equals("age1")) {
+			str += " AND age BETWEEN 18 AND 45";
+		}
+
+		else if (this.age.equals("age2")) {
+			str += " AND age BETWEEN 45 AND 65";
+		}
+
+		else if (this.age.equals("age3")) {
+			str += " AND age > 65";
+		}
+
+		if (!this.category.equals("default")) {
+			str += " AND category = " + this.category;
+		}
+
+		System.out.println("============>>>>>>>>>" + str);
+
+		return str;
+	}
 
 	public UserBean() {
 		System.out.println("BEAN CALLED");

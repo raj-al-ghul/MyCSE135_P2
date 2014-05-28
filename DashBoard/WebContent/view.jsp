@@ -27,12 +27,11 @@
 					<TD><b>Execute Query:</b></TD>
 					<TR>
 						<TD><select name="view">
-								<option value="default">Choose:</option>
 								<option value="customer">Customer</option>
 								<option value="state">State</option>
 						</select></TD>
 						<TD><select name="state" size="1">
-								<option value="ALL">All</option>
+								<option value="default">All</option>
 								<option value="AL">Alabama</option>
 								<option value="AK">Alaska</option>
 								<option value="AZ">Arizona</option>
@@ -85,16 +84,18 @@
 								<option value="WI">Wisconsin</option>
 								<option value="WY">Wyoming</option>
 						</select></TD>
-						<TD><select>
-								<option value="ageAll">All</option>
+						<TD><select name="age">
+								<option value="default">All</option>
 								<option value="age0">12-18</option>
 								<option value="age1">18-45</option>
 								<option value="age2">45-65</option>
 								<option value="age3">Over 65</option>
 						</select></TD>
-						<TD><select>
-								<option value="prodAll">All</option>
+
+						<TD><select name="category">
+								<option value="default">All</option>
 								<%
+									currentUser = UserDAO.getCat(currentUser);
 									System.out.println("PARSE CAT QUERY");
 									boolean moreCat;
 									int i = 0;
@@ -103,13 +104,15 @@
 									} else {
 										System.out.println("NOT NULL");
 										while (moreCat = currentUser.rs.next()) {
-											out.write("<option value=\"cat"+i+"\">"
-													+ currentUser.rs.getString("name") + "</option>");
+
+											String cat = currentUser.rs.getString("name");
+											out.write("<option value=\"" + cat + "\">" + cat
+													+ "</option>");
+
 											i++;
 										}
 									}
 									UserDAO.closeConn();
-									
 								%>
 
 						</select></TD>

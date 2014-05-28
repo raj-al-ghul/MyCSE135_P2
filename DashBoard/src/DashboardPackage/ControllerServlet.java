@@ -49,46 +49,54 @@ public class ControllerServlet extends HttpServlet {
 
 			case 0: {
 				System.out.println("CASE 0");
-				user = UserDAO.getCat(user);
+				//user = UserDAO.getCat(user);
+				user.prodCurr = 0;
+				user.viewCurr = 0;
 				response.sendRedirect("view.jsp");
 				break;
 			}
 			case 1: {
 				System.out.println("CASE 1");
-				user = UserDAO.getCat(user); //called each time a page is refreshed
-				//user = UserDAO.products(user);
-				//user = UserDAO.buildTemp(user);
-				//user = UserDAO.getAllTemp(user);
-				
-				//user = UserDAO.viewTable(user);
+				UserDAO.next20 = 0;
+				//user = UserDAO.getCat(user); // called each time a page is
+												// refreshed
+				// user = UserDAO.products(user);
+				// user = UserDAO.buildTemp(user);
+				// user = UserDAO.getAllTemp(user);
+
+				// user = UserDAO.viewTable(user);
 
 				if (user.isValid()) {
 
 					user.view = request.getParameter("view");
-					
+					user.state = request.getParameter("state");
+					user.age = request.getParameter("age");
+					user.category = request.getParameter("category");
+
+					user.prodCurr += 10;
+					user.viewCurr += 20;
+
 					response.sendRedirect("success.jsp");
 				} else {
 					response.sendRedirect("error.jsp");
 				}
 				break;
 			}
-			case 2:
-			{
-				//user = UserDAO.products(user);
-				//user = UserDAO.getAllTemp(user);
+			case 2: {
+				// user = UserDAO.products(user);
+				// user = UserDAO.getAllTemp(user);
+				user.prodCurr += 10;
 				response.sendRedirect("Next10.jsp");
 				break;
 			}
-			case 3:
-			{
-				//user = UserDAO.products(user);
-				
+			case 3: {
+				// user = UserDAO.products(user);
+				user.viewCurr += 20;
 				response.sendRedirect("Next20.jsp");
 				break;
 			}
 			default: {
-				
-				
+
 				System.out.println("DEFAULT");
 				response.sendRedirect("view.jsp");
 			}
