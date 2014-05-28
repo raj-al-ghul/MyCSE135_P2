@@ -25,6 +25,8 @@ public class UserBean {
 
 	public int prodCurr = 0;
 	public int viewCurr = 0;
+	public int totUsers = 0;
+	public int curUsers = 0;
 
 	public String makeStrings() {
 		String str = "";

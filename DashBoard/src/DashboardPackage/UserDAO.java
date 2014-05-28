@@ -26,7 +26,7 @@ public class UserDAO {
 	public static UserBean buildTemp(UserBean bean) {
 		// prodString = new StringBuilder();
 		StringBuilder productQuery = new StringBuilder();
-		productQuery.append("select * from products where 1 = 1 ");//cat
+		productQuery.append("select * from products where 1 = 1 ");// cat
 		System.out.println(productQuery.toString());
 		try {
 			currentCon = ConnectionManager.getConnection();
@@ -73,7 +73,14 @@ public class UserDAO {
 	public static UserBean fillTable(UserBean bean) {
 
 		// get all the users, and insert into the table one at a time with 0's.
-		String users = "SELECT * FROM users";//state, age
+		String users;
+		if (bean.view.equals("customer")) {
+			users = "SELECT * FROM users";// state, age
+		}
+		else{
+			users = "SELECT states.name, states.id, states.name as state FROM states";
+		}
+		
 		StringBuilder query = new StringBuilder();
 		query.append("INSERT INTO temp(name, uid, state " + prodString
 				+ " ) VALUES( ");
@@ -90,6 +97,7 @@ public class UserDAO {
 			boolean more;
 
 			while (more = result.next()) {
+
 				String temp = new String();
 				temp = tempStr;
 				temp = temp
@@ -104,10 +112,12 @@ public class UserDAO {
 
 				// stmt.executeUpdate(temp);
 				insertPlaceHolder(temp);
-
+				bean.totUsers++;
 				// bean = updateTable(bean);
 
 			}
+			System.out.println("Total users: " + bean.totUsers
+					+ " &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 			prodCount = 0;
 
 		} catch (Exception ex) {
@@ -142,7 +152,7 @@ public class UserDAO {
 	}
 
 	private static void insertPlaceHolder(String temp) {
-
+System.out.println("QUERY: " + temp);
 		try {
 			currentCon = ConnectionManager.getConnection();
 			stmt = currentCon.createStatement();
@@ -159,11 +169,20 @@ public class UserDAO {
 	}
 
 	public static UserBean updateTable(UserBean bean) {
-//state, age, cat(id),
-		String users = "select users.name, sales.uid, sales.pid, sum(sales.quantity * sales.price) "
-				+ "from sales, users, products "
-				+ "where users.id = sales.uid "//add var
-				+ "group by users.name, sales.uid, sales.pid;";
+		// state, age, cat(id),
+		String users;
+		if (bean.view.equals("customer")) {
+			users = "select users.name, sales.uid, sales.pid, sum(sales.quantity * sales.price) "
+					+ "from sales, users, products "
+					+ "where users.id = sales.uid "// add var
+					+ "group by users.name, sales.uid, sales.pid";
+		} else {
+			users = "select states.name, states.id as uid, sales.pid, sum(sales.quantity * sales.price) "
+					+ "from sales, states, products, users "
+					+ "where states.name = users.state "
+					+ "group by states.name, states.id, sales.uid, sales.pid";
+
+		}
 
 		/*
 		 * query = "UPDATE temp SET prod" + getString("pid") + " = " +
@@ -241,10 +260,16 @@ public class UserDAO {
 	}
 
 	public static UserBean get20FromTemp(UserBean bean) {
+		String viewBy;
+		if (bean.view.equals("customer")) {
+			viewBy = "name";
+		} else {
+			viewBy = "state";
+		}
 
-		String query = "SELECT * FROM temp order by name offset " + next20
-				+ " limit 20";
-		
+		String query = "SELECT * FROM temp order by " + viewBy + " offset "
+				+ next20 + " limit 20";
+
 		System.out.println("Query: " + query);
 		try {
 			currentCon = ConnectionManager.getConnection();
@@ -257,17 +282,18 @@ public class UserDAO {
 
 		} catch (Exception ex) {
 			System.out
-					.println("Get20 From Temp Query failed: An Exception has occurred! " + ex);
+					.println("Get20 From Temp Query failed: An Exception has occurred! "
+							+ ex);
 		}
-		//closeConn();
-		
+		// closeConn();
+
 		return bean;
 	}
 
 	// ////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static UserBean products(UserBean bean) {
 		StringBuilder productQuery = new StringBuilder();
-		productQuery.append("select * from products"); //cat
+		productQuery.append("select * from products"); // cat
 
 		try {
 			currentCon = ConnectionManager.getConnection();

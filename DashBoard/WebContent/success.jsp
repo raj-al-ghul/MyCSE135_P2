@@ -452,9 +452,13 @@
 							}
 
 							out.write("</TR>");
+							currentUser.curUsers++;
 						}
 						UserDAO.closeConn();
 						//currentUser = UserDAO.closeConn(currentUser);
+						if (selectedView.equals("state")) {
+							currentUser.totUsers = 50;
+						}
 					%>
 
 
@@ -482,11 +486,18 @@
 		%>
 
 		<%
-			if (currentUser.viewTot > currentUser.viewCurr) {
+			System.out.println("curr: " + currentUser.curUsers + " tot: "
+					+ currentUser.totUsers);
+			String buttonView = "Customers";
+			if (selectedView.equals("state")) {
+				buttonView = "State";
+			}
+			//if (currentUser.curUsers < currentUser.totUsers) 
+				{
 		%>
 
 		<form action="ControllerServlet">
-			<input type="submit" value="Next 20 Names"
+			<input type="submit" value="Next 20 "<% out.write(buttonView); %>
 				style="height: 2em; width: 10em"><input type="hidden"
 				name="st" value="3">
 		</form>

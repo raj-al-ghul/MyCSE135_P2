@@ -231,11 +231,113 @@ Modified Table:
 				</TABLE></TD>
 		</TABLE>
 
-
+"","","Arizona","","","Colorado","","Delaware","","",
+				"Hawaii","","","","","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts",
+				"Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey",
+				"New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island",
+				"South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"
 
 
 INSERT INTO sales (uid, pid, quantity,price) VALUES(2, 5 , 2, 7);
 INSERT INTO products (cid, name, SKU, price) VALUES(1, 'p6','SKU6',5);
 
+DROP TABLE IF EXISTS states;
+
+CREATE TABLE states (
+    id          SERIAL PRIMARY KEY,
+    name        TEXT NOT NULL UNIQUE
+);
+
+INSERT INTO states (name) VALUES('New Mexico');
+INSERT INTO states (name) VALUES('New York');
+INSERT INTO states (name) VALUES('North Carolina');
+INSERT INTO states (name) VALUES('North Dakota');
+INSERT INTO states (name) VALUES('Ohio');
+INSERT INTO states (name) VALUES('Oklahoma');
+INSERT INTO states (name) VALUES('Oregon');
+INSERT INTO states (name) VALUES('Pennsylvania');
+INSERT INTO states (name) VALUES('Rhode Island');
+INSERT INTO states (name) VALUES('South Carolina');
+INSERT INTO states (name) VALUES('South Dakota');
+INSERT INTO states (name) VALUES('Tennessee');
+INSERT INTO states (name) VALUES('Texas');
+INSERT INTO states (name) VALUES('Utah');
+INSERT INTO states (name) VALUES('Vermont');
+INSERT INTO states (name) VALUES('Virginia');
+INSERT INTO states (name) VALUES('Washington');
+INSERT INTO states (name) VALUES('West Virginia');
+INSERT INTO states (name) VALUES('Wisconsin');
+INSERT INTO states (name) VALUES('Wyoming');
+INSERT INTO states (name) VALUES('Maine');
+INSERT INTO states (name) VALUES('Maryland');
+INSERT INTO states (name) VALUES('Massachusetts');
+INSERT INTO states (name) VALUES('Michigan');
+INSERT INTO states (name) VALUES('Minnesota');
+INSERT INTO states (name) VALUES('Mississippi');
+INSERT INTO states (name) VALUES('Missouri');
+INSERT INTO states (name) VALUES('Montana');
+INSERT INTO states (name) VALUES('Nebraska');
+INSERT INTO states (name) VALUES('Nevada');
+INSERT INTO states (name) VALUES('New Hampshire');
+INSERT INTO states (name) VALUES('New Jersey');
+INSERT INTO states (name) VALUES('Alabama');
+INSERT INTO states (name) VALUES('Alaska');
+INSERT INTO states (name) VALUES('Arizona');
+INSERT INTO states (name) VALUES('Arkansas');
+INSERT INTO states (name) VALUES('California');
+INSERT INTO states (name) VALUES('Colorado');
+INSERT INTO states (name) VALUES('Connecticut');
+INSERT INTO states (name) VALUES('Delaware');
+INSERT INTO states (name) VALUES('Florida');
+INSERT INTO states (name) VALUES('Georgia');
+INSERT INTO states (name) VALUES('Hawaii');
+INSERT INTO states (name) VALUES('Idaho');
+INSERT INTO states (name) VALUES('Illinois');
+INSERT INTO states (name) VALUES('Indiana');
+INSERT INTO states (name) VALUES('Iowa');
+INSERT INTO states (name) VALUES('Kansas');
+INSERT INTO states (name) VALUES('Kentucky');
+INSERT INTO states (name) VALUES('Louisiana');
 
 
+select states.name, sales.pid, sum(sales.quantity * sales.price) 
+from sales, states, products, users 
+where states.name = users.state 
+AND users.id = sales.uid   
+group by state.name, states.id, sales.pid;
+
+select states.name, sales.uid, sales.pid, sum(sales.quantity * sales.price) from sales, states, products, users where states.name = users.state AND users.id = sales.uid group by states.name, sales.uid, sales.pid;
+
+
+
+select states.name, sales.pid, sum(sales.quantity * sales.price) from sales, states, products, users where states.name = users.state group by states.name, sales.pid;
+
+////////GOOD
+select states.name, states.id as uid, sales.pid, sum(sales.quantity * sales.price) from sales, states, products, users where states.name = users.state group by states.name, states.id, sales.pid;
+
+
+UPDATE temp SET prod1 = 2 WHERE uid = 2;
+
+
+ id  |    name    | uid |     state      | prod1 | prod2 | prod3 | prod4 | prod5 | prod6 | prod7 | prod8 | prod9 | prod10 
+-----+------------+-----+----------------+-------+-------+-------+-------+-------+-------+-------+-------+-------+--------
+  70 | G_user_69  |  70 | Alabama        |     0 |  4900 |     0 |     0 |     0 |     0 |  1960 |     0 |     0 |      0
+  27 | T_user_26  |  27 | Alabama        |     0 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |      0
+  99 | Y_user_98  |  99 | Alabama        |     0 |     0 |     0 |     0 |     0 |     0 |     0 |  2340 |     0 |      0
+  41 | D_user_40  |  41 | Alaska         |     0 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |      0
+  93 | H_user_92  |  93 | Alaska         |     0 |  4200 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |      0
+  48 | D_user_47  |  48 | Alaska         |     0 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |      0
+  42 | M_user_41  |  42 | Arizona        |     0 |     0 |  3780 |     0 |     0 |     0 |     0 |     0 |     0 |   1100
+  80 | H_user_79  |  80 | Arizona        |     0 |     0 |     0 |  2920 |     0 |     0 |     0 |     0 |    90 |      0
+  52 | F_user_51  |  52 | Arkansas       |     0 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |      0
+  49 | G_user_48  |  49 | Arkansas       |     0 |  2100 |     0 |     0 |     0 |     0 |     0 |  1170 |     0 |      0
+  33 | W_user_32  |  33 | Arkansas       |     0 |     0 |     0 |     0 |   280 |     0 |     0 |     0 |     0 |      0
+   1 | CSE        |   1 | california     |     0 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |      0
+  91 | A_user_90  |  91 | Colorado       |     0 |     0 |     0 |     0 |     0 |     0 |     0 |  1560 |     0 |      0
+  62 | Y_user_61  |  62 | Connecticut    |     0 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |      0
+  56 | D_user_55  |  56 | Delaware       |   140 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |     0 |      0
+
+select state, sum(prod2) from temp where state = 'Alabama';
+UPDATE temp SET prod2 = 2 WHERE uid = 27;
+
+select states.name, states.id as uid, sales.pid, sum(sales.quantity * sales.price) from sales, states, products, users where states.name = users.state group by states.name, states.id, sales.pid;

@@ -27,7 +27,6 @@
 					}
 					UserDAO.closeConn();
 
-
 					currentUser = UserDAO.products(currentUser);
 
 					String[] strArr = new String[10];
@@ -43,7 +42,6 @@
 					UserDAO.closeConn();
 				%>
 				<%
-					
 					currentUser = UserDAO.get20FromTemp(currentUser);
 
 					boolean more = true;
@@ -94,7 +92,9 @@
 		%>
 
 		<%
-			if (currentUser.viewTot > currentUser.viewCurr) {
+			System.out.println("curr: " + currentUser.curUsers + " tot: "
+					+ currentUser.totUsers);
+			if (currentUser.curUsers < currentUser.totUsers) {
 		%>
 
 		<form action="ControllerServlet">

@@ -33,7 +33,7 @@ public class DataGeneratorBulk
 	public static void main(String[] args) throws Exception
 	{
 
-		int Num_users		=	39; //100
+		int Num_users		=	100; //100
 		int Num_categories	=	10;  //10
 		int Num_products	=	10;//1000
 		int Num_sales		=	10;//10000
