@@ -102,12 +102,14 @@
 										System.out.println("NULL BEAN");
 									} else {
 										System.out.println("NOT NULL");
-										while (moreCat = currentUser.rsCat.next()) {
+										while (moreCat = currentUser.rs.next()) {
 											out.write("<option value=\"cat"+i+"\">"
-													+ currentUser.rsCat.getString("name") + "</option>");
+													+ currentUser.rs.getString("name") + "</option>");
 											i++;
 										}
 									}
+									UserDAO.closeConn();
+									
 								%>
 
 						</select></TD>

@@ -44,10 +44,7 @@ public class ControllerServlet extends HttpServlet {
 		try {
 			session = request.getSession(true);
 			session.setAttribute("currentSessionUser", user);
-			// UserBean user = new UserBean();
-			// user.setValid(true);
-			// user.setUserName(request.getParameter("un"));
-			// user.setPassword(request.getParameter("pw"));
+
 			switch (test) {
 
 			case 0: {
@@ -59,10 +56,11 @@ public class ControllerServlet extends HttpServlet {
 			case 1: {
 				System.out.println("CASE 1");
 				user = UserDAO.getCat(user); //called each time a page is refreshed
-				user = UserDAO.buildTemp(user);
-				user = UserDAO.name(user);
-				user = UserDAO.products(user);
-				user = UserDAO.viewTable(user);
+				//user = UserDAO.products(user);
+				//user = UserDAO.buildTemp(user);
+				//user = UserDAO.getAllTemp(user);
+				
+				//user = UserDAO.viewTable(user);
 
 				if (user.isValid()) {
 
@@ -77,13 +75,13 @@ public class ControllerServlet extends HttpServlet {
 			case 2:
 			{
 				//user = UserDAO.products(user);
-				user = UserDAO.getAllTemp(user);
+				//user = UserDAO.getAllTemp(user);
 				response.sendRedirect("Next10.jsp");
 				break;
 			}
 			case 3:
 			{
-				user = UserDAO.products(user);
+				//user = UserDAO.products(user);
 				
 				response.sendRedirect("Next20.jsp");
 				break;

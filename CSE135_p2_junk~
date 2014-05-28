@@ -96,7 +96,35 @@ INSERT INTO sales (uid, pid, quantity,price) VALUES(1, 4 , 2, 2);
 ///////////////////////////////////////////
 SELECT pid, sum(total) FROM temp_table WHERE name = 'user0' AND pid = 1;
 
+DROP TABLE IF EXISTS temp; CREATE TABLE temp ( id SERIAL PRIMARY KEY, name TEXT, uid INTEGER, state TEXT , p0 FLOAT , p1 FLOAT , p2 FLOAT , p3 FLOAT , p4 FLOAT , p5 FLOAT  )
 
+Query: DROP TABLE IF EXISTS temp; CREATE TABLE temp ( id SERIAL PRIMARY KEY, name TEXT, uid INTEGER, state TEXT , prod1 FLOAT , prod2 FLOAT , prod3 FLOAT , prod4 FLOAT , prod5 FLOAT , prod6 FLOAT  )
+
+"INSERT INTO temp(name, uid, state," + " prod" + pid +") VALUES( '"+ users.name +"', " + users.uid + " 0, 0 , 0,)"
+
+StringBuilder str = new StringBuilder();
+str.append("INSERT INTO temp(name, uid, state");
+while(ismore)
+{
+  str.append(", prod" + pid);
+}
+str.append(") VALUES( '");
+
+
+INSERT INTO users (name, role, age, state) VALUES('user2','customer',2,'CA');
+
+
+//////////////////////
+
+INSERT INTO temp(name, uid, statenull, prod1, prod2, prod3, prod4, prod5, prod6 ) VALUES( 'user0', 1, CA, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+INSERT INTO temp(name, uid, statenull, prod1, prod2, prod3, prod4, prod5, prod6 ) VALUES( 'user0', 1, CA, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)'user1', 2, CA, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+INSERT INTO temp(name, uid, statenull, prod1, prod2, prod3, prod4, prod5, prod6 ) VALUES( 'user0', 1, CA, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)'user1', 2, CA, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)'user2', 3, CA, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+INSERT INTO temp(name, uid, statenull, prod1, prod2, prod3, prod4, prod5, prod6 ) VALUES( 'user0', 1, CA, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)'user1', 2, CA, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)'user2', 3, CA, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)'user3', 5, CA, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+/////////////////////
+
+
+UPDATE Customers SET ContactName='Alfred Schmidt', City='Hamburg' WHERE CustomerName='Alfreds Futterkiste';
+UPDATE temp SET prod1 = 100.0 WHERE uid = 1;
 
 
 

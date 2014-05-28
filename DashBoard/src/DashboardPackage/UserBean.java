@@ -5,6 +5,7 @@ import java.util.*;
 
 public class UserBean {
 	public boolean valid = true;
+	public ResultSet rs;
 	public ResultSet rsBean;
 	public ResultSet prodRS;
 	public ResultSet tempRS;
@@ -14,6 +15,7 @@ public class UserBean {
 	public ArrayList<String> strArr = new ArrayList<String>();
 	public int prodIndex = 0;
 	public int prodCount = 0;
+	
 
 	public UserBean() {
 		System.out.println("BEAN CALLED");

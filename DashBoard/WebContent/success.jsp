@@ -112,15 +112,13 @@
 									System.out.println("PARSE CAT QUERY");
 									boolean moreCat;
 									int i = 0;
-									if (currentUser == null) {
-										System.out.println("NULL BEAN");
-									} else {
-										System.out.println("NOT NULL");
-										while (moreCat = currentUser.rsCat.next()) {
-											out.write("<option value=\"cat" + i + "\">"
-													+ currentUser.rsCat.getString("name") + "</option>");
-										}
+
+									while (moreCat = currentUser.rs.next()) {
+										out.write("<option value=\"cat" + i + "\">"
+												+ currentUser.rs.getString("name") + "</option>");
+
 									}
+									UserDAO.closeConn();
 								%>
 
 						</select></TD>
@@ -142,31 +140,41 @@
 				<TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3">
 					<TD><b>Name:</b></TD>
 					<%
+						currentUser = UserDAO.products(currentUser);
 						int count = 0;
 						boolean moreProd;
-						while(moreProd = currentUser.prodRS.next())
-						{
+						while (moreProd = currentUser.rs.next()) {
 							currentUser.prodCount++;
 						}
-	
+						UserDAO.closeConn();
+
+						System.out.println("Products counted : " + currentUser.prodCount
+								+ "#$#$%$%$#%$@#@%#@$@%$^%^&%^&^&^&&$&%%#^^^$#$^#^$#");
 						currentUser = UserDAO.products(currentUser);
 
 						String[] strArr = new String[10];
-						
-						while (count < 10 && (moreProd = currentUser.prodRS.next())) {
-							out.write("<TD><b>" + currentUser.prodRS.getString("name")
+
+						while (count < 10 && (moreProd = currentUser.rs.next())) {
+							out.write("<TD><b>" + currentUser.rs.getString("name")
 									+ "</b></TD>");
-							//pid.add(currentUser.prodRS.getString("id"));
-							//currentUser.strArr.add(currentUser.prodRS.getString("id"));
-							strArr[count] = "prod" + currentUser.prodRS.getString("id");
+
+							strArr[count] = "prod" + currentUser.rs.getString("id");
 							count++;
-							
+
 						}
+						UserDAO.closeConn();
 					%>
 
 
 					<%
-						boolean more = true;
+						currentUser = UserDAO.buildTemp(currentUser);
+						UserDAO.closeConn();
+						currentUser = UserDAO.fillTable(currentUser);
+						UserDAO.closeConn();
+						currentUser = UserDAO.updateTable(currentUser);
+						UserDAO.closeConn();
+						
+						/*boolean more = true;
 						int index = 0;
 						while (index < 20 && (more = currentUser.rsAllTemp.next())) {
 							index++;
@@ -182,11 +190,9 @@
 							}
 
 							out.write("</TR>");
-						}
+						}*/
 
-						if (more == false) {
-							//currentUser = UserDAO.closeConn(currentUser);
-						}
+						//currentUser = UserDAO.closeConn(currentUser);
 					%>
 
 
@@ -205,7 +211,7 @@
 				name="st" value="2">
 		</form>
 		<%
-			if (more == true) {
+			//if (more == true) {
 		%>
 		<form action="ControllerServlet">
 			<input type="submit" value="Next 20 Names"
@@ -213,7 +219,7 @@
 				name="st" value="3">
 		</form>
 		<%
-			}
+			//}
 		%>
 	</center>
 
