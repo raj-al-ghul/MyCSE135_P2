@@ -112,7 +112,7 @@ public class UserDAO {
 				}
 				// prodCount = 0;
 				temp = temp + ")";
-				System.out.println("TEMP STRING: " + temp);
+
 				// stmt.executeUpdate(temp);
 				insertPlaceHolder(temp);
 				bean.totUsers++;
@@ -171,32 +171,20 @@ public class UserDAO {
 		closeConn();
 	}
 
-	public static String getTotals(UserBean bean, String name) {
+	public static UserBean getTotals(UserBean bean) {
 		String users;
-		String total = "0";
 		if (bean.view.equals("customer")) {
 
 			users = "select users.name, sum(sales.price * sales.quantity) as totals "
-					+ "from sales, users, products "
-					+ "where sales.uid = users.id "
-					+ "and sales.pid = products.id "
-					+ "and users.name = '"
-					+ name
-					+ "' "
+					+ "from sales, users where sales.uid = users.id "
 					+ bean.genAge()
 					+ bean.genState()
 					+ bean.genCat()
 					+ " group by users.name order by users.name";
 			// + bean.genAge() + bean.genState() + bean.genCat()
 		} else {
-			users = "select states.name, sum(sales.price * sales.quantity) as totals "
-					+ "from users, states, sales, products "
-					+ "where sales.uid = users.id "
-					+ "and sales.pid = products.id "
-					+ "and users.state = states.name "
-					+ "and states.name = '"
-					+ name
-					+ "' "
+			users = "select states.name, sum(sales.price * sales.quantity) as totals from users, states, sales "
+					+ "where sales.uid = users.id and users.state = states.name "
 					+ bean.genAge()
 					+ bean.genState()
 					+ bean.genCat()
@@ -212,41 +200,27 @@ public class UserDAO {
 			System.out.println(users);
 			totalRS = totalSTMT.executeQuery(users);
 
-			boolean more;
-
-			while (more = totalRS.next()) {
-				total = totalRS.getString("totals");
-
-			}
-			// bean.rsTotal = totalRS;
+			bean.rsTotal = totalRS;
 
 		} catch (Exception ex) {
 			System.out
 					.println("get totals Query failed: An Exception has occurred! "
 							+ ex);
 		}
-		return total;
+		return bean;
 	}
 
 	public static UserBean updateTable(UserBean bean) {
 		// state, age, cat(id),
 		String users;
 		if (bean.view.equals("customer")) {
-			users = "select users.name, users.id as uid, sales.pid, sum(sales.price * sales.quantity) "
-					+ "from sales, products, users "
-					+ "where sales.pid = products.id and sales.uid = users.id "
+			users = "select users.name, sales.uid, sales.pid, sum(sales.quantity * sales.price) "
+					+ "from sales, users, products "
+					+ "where users.id = sales.uid "// add var
+					+ bean.genAge()
 					+ bean.genState()
 					+ bean.genCat()
-					+ bean.genAge()
-					+ " group by users.name, users.id, sales.pid";
-			/*
-			 * users =
-			 * "select users.name, sales.uid, sales.pid, sum(sales.quantity * sales.price) "
-			 * + "from sales, users, products " +
-			 * "where users.id = sales.uid "// add var + bean.genAge() +
-			 * bean.genState() + bean.genCat() +
-			 * "group by users.name, sales.uid, sales.pid";
-			 */
+					+ "group by users.name, sales.uid, sales.pid";
 		} else {
 			users = "select users.state as name, states.id as uid, sales.pid, sum(sales.quantity * sales.price) "
 					+ "from users, sales, products, states "
@@ -284,7 +258,7 @@ public class UserDAO {
 						+ " = " + updateTableRS.getString("sum")
 						+ " WHERE uid = " + updateTableRS.getString("uid");
 
-				System.out.println(temp);
+				// System.out.println(temp);
 				// stmt.executeUpdate(temp);
 				// System.out.println("TABLE UPDATED");
 				executeTableUpdate(temp);

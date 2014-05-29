@@ -45,11 +45,11 @@
 				%>
 				<%
 					currentUser = UserDAO.get20FromTemp(currentUser);
-				//currentUser = UserDAO.getTotals(currentUser);
+				currentUser = UserDAO.getTotals(currentUser);
 
 					boolean more = true;
 					int index = 0;
-					//currentUser.rsTotal.next();
+					currentUser.rsTotal.next();
 					while (index < 20 && (more = currentUser.rs.next())) {
 						System.out.println("IN WHILE 20 from temp");
 						index++;
@@ -60,11 +60,13 @@
 						} else {
 							name = currentUser.rs.getString("state");
 						}
-						
-						String str = UserDAO.getTotals(currentUser, name);
-						UserDAO.closeTotCon();	
-						name = name + " ($" + str + ".00)";
-						
+						String testStr = currentUser.rsTotal.getString("name");
+						if (testStr.equals(name)) {
+							name = name + "($" + currentUser.rsTotal.getString("totals") + ".00)";
+							currentUser.rsTotal.next();
+						} else {
+							name = name + "($0.00)";
+						}
 						out.write("<TD>" + name + "</TD>");
 
 						for (int i = 0; i < count && i < 10; i++) {
@@ -76,7 +78,7 @@
 						out.write("</TR>");
 					}
 					UserDAO.closeConn();
-					//UserDAO.closeTotCon();
+					UserDAO.closeTotCon();
 					//currentUser = UserDAO.closeConn(currentUser);
 				%>
 

@@ -219,11 +219,11 @@
 						currentUser = UserDAO.getCountProds(currentUser);
 						UserDAO.closeConn();
 						currentUser = UserDAO.get20FromTemp(currentUser);
-						//currentUser = UserDAO.getTotals(currentUser);
+						currentUser = UserDAO.getTotals(currentUser);
 						
 						boolean more = true;
 						int index = 0;
-						
+						currentUser.rsTotal.next();
 						while (index < 20 && (more = currentUser.rs.next())) {
 							index++;
 							out.write("<TR>");
@@ -233,22 +233,18 @@
 							} else {
 								name = currentUser.rs.getString("state");
 							}
-							
-							//String testStr = currentUser.rsTotal.getString("name");
-							String str = UserDAO.getTotals(currentUser, name);
-							UserDAO.closeTotCon();	
-							name = name + " ($" + str + ".00)";
-							/*if (testStr.equals(name)) {
+							String testStr = currentUser.rsTotal.getString("name");
+							if (testStr.equals(name)) {
 								name = name + "($" + currentUser.rsTotal.getString("totals") + ".00)";
 								currentUser.rsTotal.next();
 							} else {
 								name = name + "($0.00)";
-							}*/
+							}
 							out.write("<TD>" + name + "</TD>");
 
 							for (i = 0; i < count && i < 10; i++) {
 
-								out.write("<TD>$" + Integer.parseInt(currentUser.rs.getString(strArr[i]) )
+								out.write("<TD>$" + Integer.parseInt(currentUser.rs.getString(strArr[i]) ) / 10
 										+ ".00</TD>");
 
 							}
@@ -257,7 +253,7 @@
 							currentUser.curUsers++;
 						}
 						UserDAO.closeConn();
-						
+						UserDAO.closeTotCon();
 						//currentUser = UserDAO.closeConn(currentUser);
 						if (selectedView.equals("state")) {
 							currentUser.totUsers = 50;

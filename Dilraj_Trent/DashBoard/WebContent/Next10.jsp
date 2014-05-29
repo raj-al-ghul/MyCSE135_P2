@@ -11,83 +11,95 @@
 	<%
 		UserBean currentUser = (UserBean) (session
 				.getAttribute("currentSessionUser"));
-		currentUser.prodOffset = 0;
 	%>
 
+	<%
+		/*int count = 0;
+		int i = 0;
+		boolean moreProd = true;
+
+		currentUser = UserDAO.products(currentUser);
+
+		String[] strArr = new String[10];
+
+		while (count < 10 && (moreProd = currentUser.rs.next())) {
+
+			if (i >= currentUser.prodOffset) {
+				strArr[count] = "prod" + currentUser.rs.getString("id");
+				count++;
+			}
+			i++;
+
+		}
+
+		System.out.println("i: " + i + " count: " + count + " prodOffset: "
+				+ currentUser.prodOffset
+				+ "****************************************");
+		currentUser.prodOffset = i;
+		UserDAO.closeConn();*/
+	%>
 	<TABLE BORDER="3" CELLPADDING="10" CELLSPACING="10">
 		<TD><h1>View by Customer:</h1>
 
 			<TABLE BORDER="3" CELLPADDING="3" CELLSPACING="3">
-				<TD><b>Name:</b></TD>
 				<%
-					currentUser = UserDAO.products(currentUser);
 					int count = 0;
-					boolean moreProd;
-					while (moreProd = currentUser.rs.next()) {
-						currentUser.prodCount++;
-					}
-					UserDAO.closeConn();
-
-					currentUser = UserDAO.products(currentUser);
-
+					int i = 0;
+					boolean moreProd = true;
 					String[] strArr = new String[10];
 
-					while (count < 10 && (moreProd = currentUser.rs.next())) {
-						String prodName = currentUser.rs.getString("name");
-						out.write("<TD><b>" + prodName.substring(0, Math.min(prodName.length(), 10))
-								+ "</b></TD>");
+					currentUser = UserDAO.products(currentUser);
+					//UserDAO.next20 = UserDAO.next20 - 20;
+					//currentUser = UserDAO.get20FromTemp(currentUser);
+					boolean more;
+					int index = 0;
+					while (count < 10 && (more = currentUser.rs.next())) {
+						//System.out.println("i = " + i);
 
-						strArr[count] = "prod" + currentUser.rs.getString("id");
-						count++;
+						if (i >= currentUser.prodOffset) {
+							//System.out.println("IN THRE IF");
+							strArr[count] = "prod" + currentUser.rs.getString("id");
+
+							String prodName = currentUser.rs.getString("name");
+							out.write("<TD><b>"
+									+ prodName.substring(0,
+											Math.min(prodName.length(), 10))
+									+ "</b></TD>");
+							count++;
+						}
+						i++;
 
 					}
+					currentUser.prodOffset = currentUser.prodOffset + count;
 					UserDAO.closeConn();
 				%>
 				<%
+					UserDAO.next20 = UserDAO.next20 - 20;
 					currentUser = UserDAO.get20FromTemp(currentUser);
-				//currentUser = UserDAO.getTotals(currentUser);
 
-					boolean more = true;
-					int index = 0;
-					//currentUser.rsTotal.next();
+					more = true;
+					index = 0;
 					while (index < 20 && (more = currentUser.rs.next())) {
-						System.out.println("IN WHILE 20 from temp");
 						index++;
 						out.write("<TR>");
-						String name;
-						if (currentUser.view.equals("customer")) {
-							name = currentUser.rs.getString("name");
-						} else {
-							name = currentUser.rs.getString("state");
-						}
-						
-						String str = UserDAO.getTotals(currentUser, name);
-						UserDAO.closeTotCon();	
-						name = name + " ($" + str + ".00)";
-						
-						out.write("<TD>" + name + "</TD>");
 
-						for (int i = 0; i < count && i < 10; i++) {
-							out.write("<TD>$" + Integer.parseInt(currentUser.rs.getString(strArr[i]) ) / 10
+						for (i = 0; i < 10 && i < count; i++) {
+							out.write("<TD>$" + currentUser.rs.getString(strArr[i])
 									+ ".00</TD>");
 
 						}
 
 						out.write("</TR>");
+						//currentUser.curUsers++;
 					}
 					UserDAO.closeConn();
-					//UserDAO.closeTotCon();
-					//currentUser = UserDAO.closeConn(currentUser);
 				%>
-
-
-
 
 			</TABLE></TD>
 	</TABLE>
-	<center>
 
-				<%
+	<center>
+		<%
 			System.out.println("^^^^^BUTTONS: " + currentUser.prodTot + " - "
 					+ currentUser.prodCurr);
 			System.out.println("^^^^^BUTTONS: " + currentUser.viewTot + " - "
@@ -126,8 +138,7 @@
 			}
 		%>
 
+
 	</center>
-
-
 </body>
 </html>

@@ -1,0 +1,126 @@
+===============================================================================
+  CSE 135. Turn in for project 2.    
+-------------------------------------------------------------------------------
+  TEAM: DILRAJ SINGH, TRENT RUSSELL. 
+===============================================================================
+
+ # Database schema of the tables used in the "Sales Analytics" (just table 
+   declarations, no E/R)
+   ----------------------------------------------------------------------------
+
+       CREATE TABLE users (
+           id          SERIAL PRIMARY KEY,
+           name        TEXT NOT NULL UNIQUE,
+           role        TEXT NOT NULL,
+           age     INTEGER NOT NULL,
+           state   TEXT NOT NULL
+       );
+
+       CREATE TABLE categories (
+           id          SERIAL PRIMARY KEY,
+           name        TEXT NOT NULL UNIQUE,
+           description TEXT
+       );
+
+       CREATE TABLE products (
+           id          SERIAL PRIMARY KEY,
+           cid         INTEGER REFERENCES categories (id) ON DELETE CASCADE,
+           name        TEXT NOT NULL,
+           SKU         TEXT NOT NULL UNIQUE,
+           price       INTEGER NOT NULL
+       );
+
+       CREATE TABLE sales (
+           id          SERIAL PRIMARY KEY,
+           uid         INTEGER REFERENCES users (id) ON DELETE CASCADE,
+           pid         INTEGER REFERENCES products (id) ON DELETE CASCADE,
+           quantity    INTEGER NOT NULL,
+           price INTEGER NOT NULL
+       );
+
+       CREATE TABLE states (
+           id          SERIAL PRIMARY KEY,
+           name        TEXT NOT NULL
+       );
+
+
+       Temp table:
+       CREATE TABLE temp ( id SERIAL PRIMARY KEY, name TEXT, uid INTEGER, 
+                           state TEXT, prod1 FLOAT);
+
+        - Note that it is created dynamically, with a changing number of 
+          products. 
+
+ # Code (jsp/java, sql)
+   ----------------------------------------------------------------------------
+     
+     -> folder named: dashboard
+
+ # Separate document where you provide the queries and/or other jdbc/sql 
+   commands issued by the jsp(s)
+   ----------------------------------------------------------------------------
+   
+     -> Text file named: jsp.txt
+
+ # Index declarations
+   ----------------------------------------------------------------------------
+
+     -> Our index declarations:
+
+        CREATE UNIQUE INDEX uid ON temp (uid);
+        CREATE UNIQUE INDEX id ON users (id);
+
+ # Settings of the data generator, i.e., how many customers, products, product 
+   categories and sales the submitted version works on
+    ----------------------------------------------------------------------------
+
+      Configurations we have tried with:
+
+      Users | Categories | Products | Sales
+      -------------------------------------      
+      1000  | 10         | 10       | 10 
+      10    | 10         | 10       | 1000 
+      1000  | 10         | 10       | 1000
+      10000 | 10         | 10       | 10000
+      10    | 10         | 10       | 10000  
+      1000  | 10         | 10       | 100000  
+      1000  | 10         | 10       | 1000000 
+      10    | 10         | 1000     | 10 
+
+
+ # Response time after the "Run Query" request
+   ----------------------------------------------------------------------------
+ 
+      Configurations we have tried with:
+
+      Users | Categories | Products | Sales | Times
+      ----------------------------------------------      
+      1000  | 10         | 10       | 10     | 20s 
+      10    | 10         | 10       | 1000   | 5s
+      1000  | 10         | 10       | 1000   | 30s
+      10000 | 10         | 10       | 10000  | 10m
+      10    | 10         | 10       | 10000  | 7m
+      1000  | 10         | 10       | 100000 | 12m
+      1000  | 10         | 10       | 1000000| 15m
+      10    | 10         | 1000     | 10     | 1s
+
+
+ # Log of your experimentation with index choices: What was the response time 
+   of "Run Query" for various interesting index choices (and non-choices)? 
+   This is where you report on options that were promising but eventually did 
+   not "win".
+   ----------------------------------------------------------------------------
+
+     -> Interesting, but didn't win: 
+
+        CREATE UNIQUE INDEX sku ON temp (sku);
+          - Run time for 1000's of users was in excess of 10 seconds.
+
+        CREATE UNIQUE INDEX id ON sales (id);
+          - Run time for 100's of sales was in excess of 5 seconds. 
+
+ # Log of your experimentation with other programs/queries that you considered 
+   interesting but eventually did not win.
+   ----------------------------------------------------------------------------
+   
+     -> Old queries /experimental code located in text file: brainstorm.txt

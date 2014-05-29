@@ -1,0 +1,169 @@
+  
+   | Separate document where you provide the queries and/or other jdbc/sql 
+   | commands issued by the jsp(s)"
+
+AUTHORS: Dilraj Singh, Trent Russell.
+
+These are all of the (many are dynammically created) quareries and jdbc calls
+made in our program. 
+==============================================================================
+
+productQuery.append("select * from products where 1 = 1 "
+		+ bean.genCat());
+
+con = DriverManager.getConnection(
+		"jdbc:postgresql://localhost:5432/cse135", "postgres",
+		"password");
+
+currentCon = ConnectionManager.getConnection();
+stmt = currentCon.createStatement();
+
+rs = stmt.executeQuery(productQuery.toString());
+
+
+strB.append("DROP TABLE IF EXISTS temp; ");
+			strB.append("CREATE TABLE temp ( id SERIAL PRIMARY KEY, name TEXT, 
+			uid INTEGER, state TEXT ");
+			while (more = rs.next()) {
+				System.out.println("strB :");
+				String product = rs.getString("id");
+				System.out.println("product " + product);
+				prodString.append(", prod" + product);
+				// System.out.println("String: " + prodString.toString());
+				// prodString is used later in fillTable
+				strB.append(", prod" + product + " FLOAT ");
+				prodCount++;
+			}
+
+
+			strB.append(" )");
+			String str = strB.toString();
+
+			stmt.executeUpdate(str);
+
+		if (bean.view.equals("customer")) {
+			users = "SELECT * FROM users where 1 = 1 " + bean.genState()
+					+ bean.genAge();
+
+
+StringBuilder query = new StringBuilder();
+		query.append("INSERT INTO temp(name, uid, state " + prodString
+				+ " ) VALUES( ");
+		prodString.delete(0, prodString.length());
+		String tempStr = query.toString();
+		System.out.println("QUERY: " + tempStr);
+		try {
+			// name, uid, state, n*products
+			currentConTemp = ConnectionManager.getConnection();
+			stmtTemp = currentConTemp.createStatement();
+
+			result = stmtTemp.executeQuery(users);
+
+			boolean more;
+
+			while (more = result.next()) {
+
+				String temp = new String();
+				temp = tempStr;
+				temp = temp
+						+ ("'" + result.getString("name") + "', "
+								+ result.getString("id") + ", '"
+								+ result.getString("state") + "' ");
+				for (int i = 0; i < prodCount; i++) {
+					temp = temp + ", 0.0";
+				}
+				// prodCount = 0;
+				temp = temp + ")";
+
+				// stmt.executeUpdate(temp);
+				insertPlaceHolder(temp);
+			}
+
+
+		if (bean.view.equals("customer")) {
+			users = "select users.name, sales.uid, sales.pid, sum(sales.quantity * 
+			sales.price) "
+					+ "from sales, users, products "
+					+ "where users.id = sales.uid "// add var
+					+ "group by users.name, sales.uid, sales.pid";
+		} else {
+			users = "select users.state as name,1 as uid sum(sales.quantity * sales.price) "
+					+ "from users, sales " + "where sales.uid = users.id "
+					+ "group by users.state";
+
+updateTableCon = ConnectionManager.getConnection();
+updateTableSTMT = updateTableCon.createStatement();
+
+updateTableRS = updateTableSTMT.executeQuery(users);
+
+
+			while (more = updateTableRS.next()) {
+				String temp = new String();
+
+				temp = "UPDATE temp SET prod" + updateTableRS.getString("pid")
+						+ " = " + updateTableRS.getString("sum")
+						+ " WHERE uid = " + updateTableRS.getString("uid");
+
+				executeTableUpdate(temp);
+
+
+			}
+
+		String query = "SELECT * FROM temp order by " + viewBy + " offset "
+				+ next20 + " limit 20";
+
+currentCon = ConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+
+			rs = stmt.executeQuery(query);
+			next20 = next20 + 20;
+
+
+productQuery.append("select * from products where 1 = 1 "
+				+ bean.genCat());
+
+String str = "select * from categories";
+
+		try {
+			currentCon = ConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+			rs = stmt.executeQuery(str);
+			bean.rs = rs;
+
+		} 
+
+		String str = "select count(*) from products where 1 =1 "
+				+ bean.genCat();
+
+try {
+			currentCon = ConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+			System.out.println("CAT QUERY: " + str);
+			rs = stmt.executeQuery(str);
+			System.out.println("RETURN RS CAT");
+			// bean.setCatRS(rs);
+
+			if (rs != null) {
+				rs.next();
+				bean.prodTot = Integer.parseInt(rs.getString("count"));
+			}
+
+		} 
+
+String str = "select count(temp.id) from temp";
+		System.out.println("IN CAT QUERY");
+
+		try {
+			currentCon = ConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+			System.out.println("CAT QUERY: " + str);
+			rs = stmt.executeQuery(str);
+			System.out.println("RETURN RS CAT");
+			// bean.setCatRS(rs);
+
+			if (rs != null) {
+				rs.next();
+				bean.viewTot = Integer.parseInt(rs.getString("count"));
+			}
+
+		} 
