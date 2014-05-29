@@ -79,9 +79,13 @@
 	</TABLE>
 	<center>
 
-		<%
-			//if (currentUser.prodTot > currentUser.prodCurr) {
-			System.out.println("in IF");
+				<%
+			System.out.println("^^^^^BUTTONS: " + currentUser.prodTot + " - "
+					+ currentUser.prodCurr);
+			System.out.println("^^^^^BUTTONS: " + currentUser.viewTot + " - "
+					+ currentUser.viewCurr);
+
+			if (currentUser.prodTot > currentUser.prodCurr) {
 		%>
 
 		<form action="ControllerServlet">
@@ -90,23 +94,30 @@
 				name="st" value="2">
 		</form>
 		<%
-			//}
+			}
 		%>
 
 		<%
-			System.out.println("curr: " + currentUser.curUsers + " tot: "
-					+ currentUser.totUsers);
-			//if (currentUser.curUsers < currentUser.totUsers) {
+			/*
+				System.out.println("curr: " + currentUser.curUsers + " tot: "
+						+ currentUser.totUsers);
+				String buttonView = "Customers";
+				if (selectedView.equals("state")) {
+					buttonView = "State";
+				}*/
+			//if (currentUser.curUsers < currentUser.totUsers)
+			if (currentUser.viewTot > currentUser.viewCurr) {
 		%>
 
 		<form action="ControllerServlet">
-			<input type="submit" value="Next 20 Names"
+			<input type="submit" value="Next 20 <%=currentUser.view%>s"
 				style="height: 2em; width: 10em"><input type="hidden"
 				name="st" value="3">
 		</form>
 		<%
-			//}
+			}
 		%>
+
 	</center>
 
 

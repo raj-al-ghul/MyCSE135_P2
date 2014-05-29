@@ -180,11 +180,9 @@ public class UserDAO {
 					+ "where users.id = sales.uid "// add var
 					+ "group by users.name, sales.uid, sales.pid";
 		} else {
-			users = "select states.name, states.id as uid, sales.pid, sum(sales.quantity * sales.price) "
-					+ "from sales, states, users "
-					+ "where states.name = users.state "
-					+ "and  users.id = sales.uid " + /* state variable here */
-					"group by states.name, states.id, sales.uid, sales.pid";
+			users = "select users.state as name,1 as uid sum(sales.quantity * sales.price) "
+					+ "from users, sales " + "where sales.uid = users.id "
+					+ "group by users.state";
 
 		}
 
@@ -339,7 +337,8 @@ public class UserDAO {
 	}
 
 	public static UserBean getCountUsers(UserBean bean) {
-		String str = "select count(*) from products where 1 =1 " + bean.genCat();
+		String str = "select count(*) from products where 1 =1 "
+				+ bean.genCat();
 		System.out.println("IN CAT QUERY");
 
 		try {
@@ -349,7 +348,7 @@ public class UserDAO {
 			rs = stmt.executeQuery(str);
 			System.out.println("RETURN RS CAT");
 			// bean.setCatRS(rs);
-			
+
 			if (rs != null) {
 				rs.next();
 				bean.prodTot = Integer.parseInt(rs.getString("count"));
@@ -362,7 +361,7 @@ public class UserDAO {
 
 		return bean;
 	}
-	
+
 	public static UserBean getCountProds(UserBean bean) {
 		String str = "select count(temp.id) from temp";
 		System.out.println("IN CAT QUERY");
@@ -374,7 +373,7 @@ public class UserDAO {
 			rs = stmt.executeQuery(str);
 			System.out.println("RETURN RS CAT");
 			// bean.setCatRS(rs);
-			
+
 			if (rs != null) {
 				rs.next();
 				bean.viewTot = Integer.parseInt(rs.getString("count"));

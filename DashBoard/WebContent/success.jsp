@@ -18,12 +18,11 @@
 		String selectedSt = currentUser.state;
 		String selectedAge = currentUser.age;
 		String selectedCat = currentUser.category;
-		
-		if(selectedView.equals("state")){
+
+		if (selectedView.equals("state")) {
 			currentUser.viewTot = 50;
-		}
-		else{
-			
+		} else {
+
 		}
 	%>
 
@@ -188,9 +187,10 @@
 
 						while (count < 10 && (moreProd = currentUser.rs.next())) {
 							String prodName = currentUser.rs.getString("name");
-							out.write("<TD><b>" + prodName.substring(0, Math.min(prodName.length(), 10))
+							out.write("<TD><b>"
+									+ prodName.substring(0, Math.min(prodName.length(), 10))
 									+ "</b></TD>");
-							
+
 							System.out.println("PRODUCT NAME: ");
 							strArr[count] = "prod" + currentUser.rs.getString("id");
 							count++;
@@ -208,19 +208,18 @@
 						UserDAO.closeConn();
 						currentUser = UserDAO.updateTable(currentUser);
 						UserDAO.closeConn();
-						
+
 						/*button stuff*/
-						if(selectedView.equals("customer")){
+						if (selectedView.equals("customer")) {
 							currentUser = UserDAO.getCountUsers(currentUser);
 							UserDAO.closeConn();
 						}
-						
+
 						currentUser = UserDAO.getCountProds(currentUser);
 						UserDAO.closeConn();
-						
-						//currentUser = UserDAO.get20FromTemp(currentUser);
+						currentUser = UserDAO.get20FromTemp(currentUser);
 
-						/*boolean more = true;
+						boolean more = true;
 						int index = 0;
 						while (index < 20 && (more = currentUser.rs.next())) {
 							index++;
@@ -247,7 +246,7 @@
 						//currentUser = UserDAO.closeConn(currentUser);
 						if (selectedView.equals("state")) {
 							currentUser.totUsers = 50;
-						}*/
+						}
 					%>
 
 
@@ -261,8 +260,12 @@
 	<center>
 
 		<%
+			System.out.println("^^^^^BUTTONS: " + currentUser.prodTot + " - "
+					+ currentUser.prodCurr);
+			System.out.println("^^^^^BUTTONS: " + currentUser.viewTot + " - "
+					+ currentUser.viewCurr);
+
 			if (currentUser.prodTot > currentUser.prodCurr) {
-				System.out.println("in IF");
 		%>
 
 		<form action="ControllerServlet">
@@ -275,20 +278,25 @@
 		%>
 
 		<%
-			System.out.println("curr: " + currentUser.curUsers + " tot: "
-					+ currentUser.totUsers);
-			String buttonView = "Customers";
-			if (selectedView.equals("state")) {
-				buttonView = "State";
-			}
+			/*
+				System.out.println("curr: " + currentUser.curUsers + " tot: "
+						+ currentUser.totUsers);
+				String buttonView = "Customers";
+				if (selectedView.equals("state")) {
+					buttonView = "State";
+				}*/
 			//if (currentUser.curUsers < currentUser.totUsers)
+			if (currentUser.viewTot > currentUser.viewCurr) {
 		%>
 
 		<form action="ControllerServlet">
-			<input type="submit" value="Next 20 Names"
+			<input type="submit" value="Next 20 <%=selectedView%>s"
 				style="height: 2em; width: 10em"><input type="hidden"
 				name="st" value="3">
 		</form>
+		<%
+			}
+		%>
 
 	</center>
 

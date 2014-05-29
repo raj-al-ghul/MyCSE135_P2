@@ -59,9 +59,11 @@
 						if (i >= currentUser.prodOffset) {
 							//System.out.println("IN THRE IF");
 							strArr[count] = "prod" + currentUser.rs.getString("id");
-							
+
 							String prodName = currentUser.rs.getString("name");
-							out.write("<TD><b>" + prodName.substring(0, Math.min(prodName.length(), 10))
+							out.write("<TD><b>"
+									+ prodName.substring(0,
+											Math.min(prodName.length(), 10))
 									+ "</b></TD>");
 							count++;
 						}
@@ -74,13 +76,13 @@
 				<%
 					UserDAO.next20 = UserDAO.next20 - 20;
 					currentUser = UserDAO.get20FromTemp(currentUser);
-					
+
 					more = true;
 					index = 0;
 					while (index < 20 && (more = currentUser.rs.next())) {
 						index++;
 						out.write("<TR>");
-						
+
 						for (i = 0; i < 10 && i < count; i++) {
 							out.write("<TD>" + currentUser.rs.getString(strArr[i])
 									+ "</TD>");
@@ -96,21 +98,47 @@
 			</TABLE></TD>
 	</TABLE>
 
-
-
 	<center>
+		<%
+			System.out.println("^^^^^BUTTONS: " + currentUser.prodTot + " - "
+					+ currentUser.prodCurr);
+			System.out.println("^^^^^BUTTONS: " + currentUser.viewTot + " - "
+					+ currentUser.viewCurr);
+
+			if (currentUser.prodTot > currentUser.prodCurr) {
+		%>
+
 		<form action="ControllerServlet">
 			<input type="submit" value="Next 10 Products"
 				style="height: 2em; width: 10em"><input type="hidden"
 				name="st" value="2">
 		</form>
-		
+		<%
+			}
+		%>
+
+		<%
+			/*
+				System.out.println("curr: " + currentUser.curUsers + " tot: "
+						+ currentUser.totUsers);
+				String buttonView = "Customers";
+				if (selectedView.equals("state")) {
+					buttonView = "State";
+				}*/
+			//if (currentUser.curUsers < currentUser.totUsers)
+			if (currentUser.viewTot > currentUser.viewCurr) {
+		%>
+
 		<form action="ControllerServlet">
-			<input type="submit" value="Next 20 Names"
+			<input type="submit" value="Next 20 <%=currentUser.view%>s"
 				style="height: 2em; width: 10em"><input type="hidden"
 				name="st" value="3">
 		</form>
-		
+		<%
+			}
+		%>
+
+
 	</center>
 </body>
 </html>

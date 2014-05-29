@@ -92,6 +92,7 @@ public class ControllerServlet extends HttpServlet {
 			case 3: {
 				// user = UserDAO.products(user);
 				user.viewCurr += 20;
+				user.prodCurr = 10;
 				response.sendRedirect("Next20.jsp");
 				break;
 			}
