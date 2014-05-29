@@ -33,9 +33,9 @@ public class DataGeneratorBulk
 	public static void main(String[] args) throws Exception
 	{
 
-		int Num_users		=	100; //100
+		int Num_users		=	5; //100
 		int Num_categories	=	10;  //10
-		int Num_products	=	30;//1000
+		int Num_products	=	10;//1000
 		int Num_sales		=	10;//10000
 		
 		 String  usersPath		=	"/home/t-dogg3030/Documents/users.txt",
@@ -197,7 +197,7 @@ public class DataGeneratorBulk
 	//INSERT INTO products table
 	public void generateProducts(String productsPath,int Num_categories,int Num_products )
 	{
-		String[] nameList={"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+		String[] nameList={"Aaaaaaaaaaaaaaaaaaaaaaa","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 		ArrayList<String> SQLs=new ArrayList<String>();
 		String name="",SQL="";
 		int flag=0;

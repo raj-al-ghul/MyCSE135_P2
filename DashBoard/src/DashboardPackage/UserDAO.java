@@ -25,8 +25,10 @@ public class UserDAO {
 
 	public static UserBean buildTemp(UserBean bean) {
 		// prodString = new StringBuilder();
+		prodString.append("");
 		StringBuilder productQuery = new StringBuilder();
-		productQuery.append("select * from products where 1 = 1 ");// cat
+		productQuery.append("select * from products where 1 = 1 "
+				+ bean.genCat());// cat
 		System.out.println(productQuery.toString());
 		try {
 			currentCon = ConnectionManager.getConnection();
@@ -75,9 +77,11 @@ public class UserDAO {
 		// get all the users, and insert into the table one at a time with 0's.
 		String users;
 		if (bean.view.equals("customer")) {
-			users = "SELECT * FROM users";// state, age
+			users = "SELECT * FROM users where 1 = 1 " + bean.genState()
+					+ bean.genAge();// state, age
 		} else {
-			users = "SELECT states.name, states.id, states.name as state FROM states";
+			users = "SELECT states.name, states.id, states.name as state FROM states where 1 = 1"
+					+ bean.genStatesState();
 		}
 
 		StringBuilder query = new StringBuilder();
@@ -85,7 +89,7 @@ public class UserDAO {
 				+ " ) VALUES( ");
 		prodString.delete(0, prodString.length());
 		String tempStr = query.toString();
-		// System.out.println("QUERY: " + tempStr);
+		System.out.println("QUERY: " + tempStr);
 		try {
 			// name, uid, state, n*products
 			currentConTemp = ConnectionManager.getConnection();
@@ -177,9 +181,10 @@ public class UserDAO {
 					+ "group by users.name, sales.uid, sales.pid";
 		} else {
 			users = "select states.name, states.id as uid, sales.pid, sum(sales.quantity * sales.price) "
-					+ "from sales, states, products, users "
+					+ "from sales, states, users "
 					+ "where states.name = users.state "
-					+ "group by states.name, states.id, sales.uid, sales.pid";
+					+ "and  users.id = sales.uid " + /* state variable here */
+					"group by states.name, states.id, sales.uid, sales.pid";
 
 		}
 
@@ -292,7 +297,8 @@ public class UserDAO {
 	// ////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static UserBean products(UserBean bean) {
 		StringBuilder productQuery = new StringBuilder();
-		productQuery.append("select * from products"); // cat
+		productQuery.append("select * from products where 1 = 1 "
+				+ bean.genCat()); // cat
 
 		try {
 			currentCon = ConnectionManager.getConnection();
@@ -323,6 +329,56 @@ public class UserDAO {
 			System.out.println("RETURN RS CAT");
 			// bean.setCatRS(rs);
 			bean.rs = rs;
+
+		} catch (Exception ex) {
+			System.out
+					.println("Query failed: An Exception has occurred! " + ex);
+		}
+
+		return bean;
+	}
+
+	public static UserBean getCountUsers(UserBean bean) {
+		String str = "select count(*) from products where 1 =1 " + bean.genCat();
+		System.out.println("IN CAT QUERY");
+
+		try {
+			currentCon = ConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+			System.out.println("CAT QUERY: " + str);
+			rs = stmt.executeQuery(str);
+			System.out.println("RETURN RS CAT");
+			// bean.setCatRS(rs);
+			
+			if (rs != null) {
+				rs.next();
+				bean.prodTot = Integer.parseInt(rs.getString("count"));
+			}
+
+		} catch (Exception ex) {
+			System.out
+					.println("Query failed: An Exception has occurred! " + ex);
+		}
+
+		return bean;
+	}
+	
+	public static UserBean getCountProds(UserBean bean) {
+		String str = "select count(temp.id) from temp";
+		System.out.println("IN CAT QUERY");
+
+		try {
+			currentCon = ConnectionManager.getConnection();
+			stmt = currentCon.createStatement();
+			System.out.println("CAT QUERY: " + str);
+			rs = stmt.executeQuery(str);
+			System.out.println("RETURN RS CAT");
+			// bean.setCatRS(rs);
+			
+			if (rs != null) {
+				rs.next();
+				bean.viewTot = Integer.parseInt(rs.getString("count"));
+			}
 
 		} catch (Exception ex) {
 			System.out

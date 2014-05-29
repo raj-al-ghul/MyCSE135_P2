@@ -33,7 +33,8 @@
 					String[] strArr = new String[10];
 
 					while (count < 10 && (moreProd = currentUser.rs.next())) {
-						out.write("<TD><b>" + currentUser.rs.getString("name")
+						String prodName = currentUser.rs.getString("name");
+						out.write("<TD><b>" + prodName.substring(0, Math.min(prodName.length(), 10))
 								+ "</b></TD>");
 
 						strArr[count] = "prod" + currentUser.rs.getString("id");

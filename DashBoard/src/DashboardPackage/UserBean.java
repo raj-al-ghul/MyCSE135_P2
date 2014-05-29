@@ -30,11 +30,20 @@ public class UserBean {
 	public int totUsers = 0;
 	public int curUsers = 0;
 
+	public String genStatesState() {
+	
+		String str = "";
+		if (!this.state.equals("default")) {
+			str += " AND states.name = '" + this.state + "' ";
+		}
+		return str;
+	}
+	
 	public String genState() {
 		String str = "";
 
 		if (!this.state.equals("default")) {
-			str += " AND state = " + this.state;
+			str += " AND users.state = '" + this.state + "' ";
 		}
 
 		return str;
@@ -44,19 +53,19 @@ public class UserBean {
 		String str = "";
 
 		if (this.age.equals("age0")) {
-			str += " AND age BETWEEN 12 AND 18";
+			str += " AND users.age BETWEEN 12 AND 18 ";
 		}
 
 		else if (this.age.equals("age1")) {
-			str += " AND age BETWEEN 18 AND 45";
+			str += " AND users.age BETWEEN 18 AND 45 ";
 		}
 
 		else if (this.age.equals("age2")) {
-			str += " AND age BETWEEN 45 AND 65";
+			str += " AND users.age BETWEEN 45 AND 65 ";
 		}
 
 		else if (this.age.equals("age3")) {
-			str += " AND age > 65";
+			str += " AND users.age > 65 ";
 		}
 		return str;
 	}
@@ -65,7 +74,7 @@ public class UserBean {
 		String str = "";
 
 		if (!this.category.equals("default")) {
-			str += " AND category = " + this.category;
+			str += " AND products.cid = " + this.category + " ";
 		}
 		return str;
 	}
@@ -144,4 +153,6 @@ public class UserBean {
 		rsAllTemp = rs;
 
 	}
+
+
 }

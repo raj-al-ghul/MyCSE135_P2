@@ -59,7 +59,9 @@
 						if (i >= currentUser.prodOffset) {
 							//System.out.println("IN THRE IF");
 							strArr[count] = "prod" + currentUser.rs.getString("id");
-							out.write("<TD><b>" + currentUser.rs.getString("name")
+							
+							String prodName = currentUser.rs.getString("name");
+							out.write("<TD><b>" + prodName.substring(0, Math.min(prodName.length(), 10))
 									+ "</b></TD>");
 							count++;
 						}

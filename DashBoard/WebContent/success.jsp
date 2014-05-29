@@ -18,6 +18,13 @@
 		String selectedSt = currentUser.state;
 		String selectedAge = currentUser.age;
 		String selectedCat = currentUser.category;
+		
+		if(selectedView.equals("state")){
+			currentUser.viewTot = 50;
+		}
+		else{
+			
+		}
 	%>
 
 	<form action="ControllerServlet">
@@ -180,9 +187,11 @@
 						String[] strArr = new String[10];
 
 						while (count < 10 && (moreProd = currentUser.rs.next())) {
-							out.write("<TD><b>" + currentUser.rs.getString("name")
+							String prodName = currentUser.rs.getString("name");
+							out.write("<TD><b>" + prodName.substring(0, Math.min(prodName.length(), 10))
 									+ "</b></TD>");
-
+							
+							System.out.println("PRODUCT NAME: ");
 							strArr[count] = "prod" + currentUser.rs.getString("id");
 							count++;
 
@@ -199,9 +208,19 @@
 						UserDAO.closeConn();
 						currentUser = UserDAO.updateTable(currentUser);
 						UserDAO.closeConn();
-						currentUser = UserDAO.get20FromTemp(currentUser);
+						
+						/*button stuff*/
+						if(selectedView.equals("customer")){
+							currentUser = UserDAO.getCountUsers(currentUser);
+							UserDAO.closeConn();
+						}
+						
+						currentUser = UserDAO.getCountProds(currentUser);
+						UserDAO.closeConn();
+						
+						//currentUser = UserDAO.get20FromTemp(currentUser);
 
-						boolean more = true;
+						/*boolean more = true;
 						int index = 0;
 						while (index < 20 && (more = currentUser.rs.next())) {
 							index++;
@@ -228,7 +247,7 @@
 						//currentUser = UserDAO.closeConn(currentUser);
 						if (selectedView.equals("state")) {
 							currentUser.totUsers = 50;
-						}
+						}*/
 					%>
 
 
