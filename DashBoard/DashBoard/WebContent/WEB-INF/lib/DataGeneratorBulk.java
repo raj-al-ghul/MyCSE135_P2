@@ -1,5 +1,3 @@
-package DashboardPackage;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,15 +31,15 @@ public class DataGeneratorBulk
 	public static void main(String[] args) throws Exception
 	{
 
-		int Num_users		=	100; //100
-		int Num_categories	=	10;  //10
-		int Num_products	=	30;//1000
-		int Num_sales		=	10;//10000
+		int Num_users		=	100000; //100
+		int Num_categories	=	20;  //10
+		int Num_products	=	10000;//1000
+		int Num_sales		=	100000;//10000
 		
-		 String  usersPath		=	"/home/t-dogg3030/Documents/users.txt",
-	    		 categoriesPath	=	"/home/t-dogg3030/Documents/categories.txt",
-	    		 productsPath	=	"/home/t-dogg3030/Documents/products.txt",
-	     		 salesPath		=	"/home/t-dogg3030/Documents/sales.txt";
+		 String  usersPath		=	"C://users.txt",
+	    		 categoriesPath	=	"C://categories.txt",
+	    		 productsPath	=	"C://products.txt",
+	     		 salesPath		=	"C://sales.txt";
 		
 		DataGeneratorBulk dg=new DataGeneratorBulk();
 		dg.createData(usersPath, categoriesPath, productsPath, salesPath, Num_users,Num_categories,Num_products,Num_sales);
