@@ -24,12 +24,51 @@ public class UserBean {
 	public int viewTot = 25;
 
 	public int prodOffset = 0;
-	
-	
+
 	public int prodCurr = 0;
 	public int viewCurr = 0;
 	public int totUsers = 0;
 	public int curUsers = 0;
+
+	public String genState() {
+		String str = "";
+
+		if (!this.state.equals("default")) {
+			str += " AND state = " + this.state;
+		}
+
+		return str;
+	}
+
+	public String genAge() {
+		String str = "";
+
+		if (this.age.equals("age0")) {
+			str += " AND age BETWEEN 12 AND 18";
+		}
+
+		else if (this.age.equals("age1")) {
+			str += " AND age BETWEEN 18 AND 45";
+		}
+
+		else if (this.age.equals("age2")) {
+			str += " AND age BETWEEN 45 AND 65";
+		}
+
+		else if (this.age.equals("age3")) {
+			str += " AND age > 65";
+		}
+		return str;
+	}
+
+	public String genCat() {
+		String str = "";
+
+		if (!this.category.equals("default")) {
+			str += " AND category = " + this.category;
+		}
+		return str;
+	}
 
 	public String makeStrings() {
 		String str = "";

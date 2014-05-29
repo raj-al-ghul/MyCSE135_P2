@@ -43,272 +43,38 @@
 				out.print("selected = \"selected\"");
 			}%>
 									value="state">State</option>
-						</select></TD> value="state">State
-						</option>
-						</select>
-						</TD>
-						<TD><select name="state" size="1">
-								<option
-									<%if (selectedSt.equals("default")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="default">All</option>
-								<option
-									<%if (selectedSt.equals("AL")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="AL">Alabama</option>
-								<option
-									<%if (selectedSt.equals("AK")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="AK">Alaska</option>
-								<option
-									<%if (selectedSt.equals("AZ")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="AZ">Arizona</option>
-								<option
-									<%if (selectedSt.equals("AR")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="AR">Arkansas</option>
-								<option
-									<%if (selectedSt.equals("CA")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="CA">California</option>
-								<option
-									<%if (selectedSt.equals("C0")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="CO">Colorado</option>
-								<option
-									<%if (selectedSt.equals("CT")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="CT">Connecticut</option>
-								<option
-									<%if (selectedSt.equals("DE")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="DE">Delaware</option>
-								<option
-									<%if (selectedSt.equals("DC")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="DC">District of Columbia</option>
-								<option
-									<%if (selectedSt.equals("FL")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="FL">Florida</option>
-								<option
-									<%if (selectedSt.equals("GA")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="GA">Georgia</option>
-								<option
-									<%if (selectedSt.equals("HI")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="HI">Hawaii</option>
-								<option
-									<%if (selectedSt.equals("ID")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="ID">Idaho</option>
-								<option
-									<%if (selectedSt.equals("IL")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="IL">Illinois</option>
-								<option
-									<%if (selectedSt.equals("IN")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="IN">Indiana</option>
-								<option
-									<%if (selectedSt.equals("IA")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="IA">Iowa</option>
-								<option
-									<%if (selectedSt.equals("KS")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="KS">Kansas</option>
-								<option
-									<%if (selectedSt.equals("KY")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="KY">Kentucky</option>
-								<option
-									<%if (selectedSt.equals("LA")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="LA">Louisiana</option>
-								<option
-									<%if (selectedSt.equals("ME")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="ME">Maine</option>
-								<option
-									<%if (selectedSt.equals("MD")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="MD">Maryland</option>
-								<option
-									<%if (selectedSt.equals("MA")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="MA">Massachusetts</option>
-								<option
-									<%if (selectedSt.equals("MI")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="MI">Michigan</option>
-								<option
-									<%if (selectedSt.equals("MN")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="MN">Minnesota</option>
-								<option
-									<%if (selectedSt.equals("MS")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="MS">Mississippi</option>
-								<option
-									<%if (selectedSt.equals("MO")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="MO">Missouri</option>
-								<option
-									<%if (selectedSt.equals("MT")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="MT">Montana</option>
-								<option
-									<%if (selectedSt.equals("NE")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="NE">Nebraska</option>
-								<option
-									<%if (selectedSt.equals("NV")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="NV">Nevada</option>
-								<option
-									<%if (selectedSt.equals("NH")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="NH">New Hampshire</option>
-								<option
-									<%if (selectedSt.equals("NJ")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="NJ">New Jersey</option>
-								<option
-									<%if (selectedSt.equals("NM")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="NM">New Mexico</option>
-								<option
-									<%if (selectedSt.equals("NY")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="NY">New York</option>
-								<option
-									<%if (selectedSt.equals("NC")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="NC">North Carolina</option>
-								<option
-									<%if (selectedSt.equals("ND")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="ND">North Dakota</option>
-								<option
-									<%if (selectedSt.equals("OH")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="OH">Ohio</option>
-								<option
-									<%if (selectedSt.equals("OK")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="OK">Oklahoma</option>
-								<option
-									<%if (selectedSt.equals("OR")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="OR">Oregon</option>
-								<option
-									<%if (selectedSt.equals("PA")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="PA">Pennsylvania</option>
-								<option
-									<%if (selectedSt.equals("RI")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="RI">Rhode Island</option>
-								<option
-									<%if (selectedSt.equals("SC")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="SC">South Carolina</option>
-								<option
-									<%if (selectedSt.equals("SD")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="SD">South Dakota</option>
-								<option
-									<%if (selectedSt.equals("TN")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="TN">Tennessee</option>
-								<option
-									<%if (selectedSt.equals("TX")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="TX">Texas</option>
-								<option
-									<%if (selectedSt.equals("UT")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="UT">Utah</option>
-								<option
-									<%if (selectedSt.equals("VT")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="VT">Vermont</option>
-								<option
-									<%if (selectedSt.equals("VA")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="VA">Virginia</option>
-								<option
-									<%if (selectedSt.equals("WA")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="WA">Washington</option>
-								<option
-									<%if (selectedSt.equals("WV")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="WV">West Virginia</option>
-								<option
-									<%if (selectedSt.equals("WI")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="WI">Wisconsin</option>
-								<option
-									<%if (selectedSt.equals("WY")) {
-				out.print("selected = \"selected\"");
-			}%>
-									value="WY">Wyoming</option>
 						</select></TD>
+						<%
+							String[] states = { "Alabama", "Alaska", "Arizona", "Arkansas",
+									"California", "Colorado", "Connecticut", "Delaware",
+									"Florida", "Georgia", "Hawaii", "Idaho", "Illinois",
+									"Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
+									"Maine", "Maryland", "Massachusetts", "Michigan",
+									"Minnesota", "Mississippi", "Missouri", "Montana",
+									"Nebraska", "Nevada", "New Hampshire", "New Jersey",
+									"New Mexico", "New York", "North Carolina", "North Dakota",
+									"Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+									"Rhode Island", "South Carolina", "South Dakota",
+									"Tennessee", "Texas", "Utah", "Vermont", "Virginia",
+									"Washington", "West Virginia", "Wisconsin", "Wyoming" };
+
+							out.write("<TD><select name=\"state\" size=\"1\">");
+							if (selectedSt.equals("default")) {
+								out.write("<option selected=\"selected\" value=\"default\">All</option>");
+							} else {
+								out.write("<option value=\"default\">All</option>");
+							}
+							for (int j = 0; j < states.length; j++) {
+								if (selectedSt.equals(states[j])) {
+									out.write("<option selected=\"selected\" value=\""
+											+ states[j] + "\">" + states[j] + "</option>");
+								} else {
+									out.write("<option value=\"" + states[j] + "\">"
+											+ states[j] + "</option>");
+								}
+							}
+							out.write("</select></TD>");
+						%>
 
 						<TD><select name="age">
 								<option
@@ -344,15 +110,17 @@
 									currentUser = UserDAO.getCat(currentUser);
 									System.out.println("PARSE CAT QUERY");
 									boolean moreCat;
-									String cat;
+									String catId, catNm;
 									int i = 0;
 									while (moreCat = currentUser.rs.next()) {
-										cat = currentUser.rs.getString("name");
-										if (selectedCat.equals(cat)) {
-											out.write("<option selected = \"selected\" value=\"" + cat
-													+ "\">" + cat + "</option>");
+										catNm = currentUser.rs.getString("name");
+										catId = currentUser.rs.getString("id");
+
+										if (selectedCat.equals(catId)) {
+											out.write("<option selected = \"selected\" value=\""
+													+ catId + "\">" + catNm + "</option>");
 										} else {
-											out.write("<option value=\"" + cat + "\">" + cat
+											out.write("<option value=\"" + catId + "\">" + catNm
 													+ "</option>");
 										}
 										i++;
@@ -447,7 +215,7 @@
 							out.write("<TD>" + name + "</TD>");
 
 							for (i = 0; i < count && i < 10; i++) {
-								
+
 								out.write("<TD>" + currentUser.rs.getString(strArr[i])
 										+ "</TD>");
 
@@ -494,8 +262,7 @@
 			if (selectedView.equals("state")) {
 				buttonView = "State";
 			}
-			//if (currentUser.curUsers < currentUser.totUsers) 
-				
+			//if (currentUser.curUsers < currentUser.totUsers)
 		%>
 
 		<form action="ControllerServlet">
@@ -503,7 +270,7 @@
 				style="height: 2em; width: 10em"><input type="hidden"
 				name="st" value="3">
 		</form>
-		
+
 	</center>
 
 

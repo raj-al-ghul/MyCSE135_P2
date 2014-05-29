@@ -30,60 +30,28 @@
 								<option value="customer">Customer</option>
 								<option value="state">State</option>
 						</select></TD>
-						<TD><select name="state" size="1">
-								<option value="default">All</option>
-								<option value="AL">Alabama</option>
-								<option value="AK">Alaska</option>
-								<option value="AZ">Arizona</option>
-								<option value="AR">Arkansas</option>
-								<option value="CA">California</option>
-								<option value="CO">Colorado</option>
-								<option value="CT">Connecticut</option>
-								<option value="DE">Delaware</option>
-								<option value="DC">District of Columbia</option>
-								<option value="FL">Florida</option>
-								<option value="GA">Georgia</option>
-								<option value="HI">Hawaii</option>
-								<option value="ID">Idaho</option>
-								<option value="IL">Illinois</option>
-								<option value="IN">Indiana</option>
-								<option value="IA">Iowa</option>
-								<option value="KS">Kansas</option>
-								<option value="KY">Kentucky</option>
-								<option value="LA">Louisiana</option>
-								<option value="ME">Maine</option>
-								<option value="MD">Maryland</option>
-								<option value="MA">Massachusetts</option>
-								<option value="MI">Michigan</option>
-								<option value="MN">Minnesota</option>
-								<option value="MS">Mississippi</option>
-								<option value="MO">Missouri</option>
-								<option value="MT">Montana</option>
-								<option value="NE">Nebraska</option>
-								<option value="NV">Nevada</option>
-								<option value="NH">New Hampshire</option>
-								<option value="NJ">New Jersey</option>
-								<option value="NM">New Mexico</option>
-								<option value="NY">New York</option>
-								<option value="NC">North Carolina</option>
-								<option value="ND">North Dakota</option>
-								<option value="OH">Ohio</option>
-								<option value="OK">Oklahoma</option>
-								<option value="OR">Oregon</option>
-								<option value="PA">Pennsylvania</option>
-								<option value="RI">Rhode Island</option>
-								<option value="SC">South Carolina</option>
-								<option value="SD">South Dakota</option>
-								<option value="TN">Tennessee</option>
-								<option value="TX">Texas</option>
-								<option value="UT">Utah</option>
-								<option value="VT">Vermont</option>
-								<option value="VA">Virginia</option>
-								<option value="WA">Washington</option>
-								<option value="WV">West Virginia</option>
-								<option value="WI">Wisconsin</option>
-								<option value="WY">Wyoming</option>
-						</select></TD>
+						<%
+							String[] states = { "Alabama", "Alaska", "Arizona", "Arkansas",
+									"California", "Colorado", "Connecticut", "Delaware",
+									"Florida", "Georgia", "Hawaii", "Idaho", "Illinois",
+									"Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
+									"Maine", "Maryland", "Massachusetts", "Michigan",
+									"Minnesota", "Mississippi", "Missouri", "Montana",
+									"Nebraska", "Nevada", "New Hampshire", "New Jersey",
+									"New Mexico", "New York", "North Carolina", "North Dakota",
+									"Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+									"Rhode Island", "South Carolina", "South Dakota",
+									"Tennessee", "Texas", "Utah", "Vermont", "Virginia",
+									"Washington", "West Virginia", "Wisconsin", "Wyoming" };
+							out.write("<TD><select name=\"state\" size=\"1\">");
+							out.write("<option value=\"default\">All</option>");
+							for (int j = 0; j < states.length; j++) {
+								out.write("<option value=\"" + states[j] + "\">" + states[j]
+										+ "</option>");
+							}
+							out.write("</select></TD>");
+						%>
+
 						<TD><select name="age">
 								<option value="default">All</option>
 								<option value="age0">12-18</option>
@@ -104,9 +72,9 @@
 									} else {
 										System.out.println("NOT NULL");
 										while (moreCat = currentUser.rs.next()) {
-
-											String cat = currentUser.rs.getString("name");
-											out.write("<option value=\"" + cat + "\">" + cat
+											String catNm = currentUser.rs.getString("name");
+											String catId = currentUser.rs.getString("id");
+											out.write("<option value=\"" + catId + "\">" + catNm
 													+ "</option>");
 
 											i++;
