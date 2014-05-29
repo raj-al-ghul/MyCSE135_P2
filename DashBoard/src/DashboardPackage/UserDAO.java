@@ -248,10 +248,13 @@ public class UserDAO {
 			 * "group by users.name, sales.uid, sales.pid";
 			 */
 		} else {
-			users = "select users.state as name, states.id as uid, sales.pid, sum(sales.quantity * sales.price) "
+			users = "select users.state as name, states.id as uid, sales.pid, sum(sales.price * sales.quantity) "
 					+ "from users, sales, products, states "
 					+ "where sales.uid = users.id "
 					+ "and users.state = states.name "
+					+ bean.genState()
+					+ bean.genCat()
+					+ bean.genAge()
 					+ "group by users.state, states.id, sales.pid";
 
 			/*
@@ -261,9 +264,9 @@ public class UserDAO {
 			 * + bean.genAge() + bean.genCat() + bean.genState() +
 			 * "group by users.state, states.id, sales.pid";
 			 */
-			System.out.println(users);
+			
 		}
-
+		System.out.println(users);
 		/*
 		 * query = "UPDATE temp SET prod" + getString("pid") + " = " +
 		 * getString("sum") + " WHERE uid = " + getString("uid");
@@ -279,9 +282,14 @@ public class UserDAO {
 
 			while (more = updateTableRS.next()) {
 				String temp = new String();
-
+				String sum = updateTableRS.getString("sum");
+//System.out.println("WHY???????????????????????????????"+updateTableRS.getString("sum"));
+				if( !(bean.view.equals("customer")) )
+				{
+					sum = sum.substring(0, sum.length()-1);
+				}
 				temp = "UPDATE temp SET prod" + updateTableRS.getString("pid")
-						+ " = " + updateTableRS.getString("sum")
+						+ " = " + sum
 						+ " WHERE uid = " + updateTableRS.getString("uid");
 
 				System.out.println(temp);
