@@ -84,8 +84,8 @@
 						out.write("<TR>");
 
 						for (i = 0; i < 10 && i < count; i++) {
-							out.write("<TD>" + currentUser.rs.getString(strArr[i])
-									+ "</TD>");
+							out.write("<TD>$" + currentUser.rs.getString(strArr[i])
+									+ ".00</TD>");
 
 						}
 

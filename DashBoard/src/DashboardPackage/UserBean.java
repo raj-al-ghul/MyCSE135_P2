@@ -79,38 +79,7 @@ public class UserBean {
 		return str;
 	}
 
-	public String makeStrings() {
-		String str = "";
-
-		if (!this.state.equals("default")) {
-			str += " AND state = " + this.state;
-		}
-
-		if (this.age.equals("age0")) {
-			str += " AND age BETWEEN 12 AND 18";
-		}
-
-		else if (this.age.equals("age1")) {
-			str += " AND age BETWEEN 18 AND 45";
-		}
-
-		else if (this.age.equals("age2")) {
-			str += " AND age BETWEEN 45 AND 65";
-		}
-
-		else if (this.age.equals("age3")) {
-			str += " AND age > 65";
-		}
-
-		if (!this.category.equals("default")) {
-			str += " AND category = " + this.category;
-		}
-
-		System.out.println("============>>>>>>>>>" + str);
-
-		return str;
-	}
-
+	
 	public UserBean() {
 		System.out.println("BEAN CALLED");
 	}

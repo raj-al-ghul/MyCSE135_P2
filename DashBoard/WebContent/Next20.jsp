@@ -61,8 +61,8 @@
 						out.write("<TD>" + name + "</TD>");
 
 						for (int i = 0; i < count && i < 10; i++) {
-							out.write("<TD>" + currentUser.rs.getString(strArr[i])
-									+ "</TD>");
+							out.write("<TD>$" + currentUser.rs.getString(strArr[i])
+									+ ".00</TD>");
 
 						}
 

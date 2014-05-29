@@ -59,9 +59,6 @@ public class UserDAO {
 			stmt.executeUpdate(str);
 			System.out.println("TABLE CREATED");
 
-			// bean.setProdRS(prodRS);
-			// bean = fillTable(bean);
-
 		} catch (Exception ex) {
 			System.out
 					.println("Build Temp Query failed: An Exception has occurred! "
@@ -178,12 +175,25 @@ public class UserDAO {
 			users = "select users.name, sales.uid, sales.pid, sum(sales.quantity * sales.price) "
 					+ "from sales, users, products "
 					+ "where users.id = sales.uid "// add var
+					+ bean.genAge()
+					+ bean.genState()
+					+ bean.genCat()
 					+ "group by users.name, sales.uid, sales.pid";
 		} else {
-			users = "select users.state as name,1 as uid sum(sales.quantity * sales.price) "
-					+ "from users, sales " + "where sales.uid = users.id "
-					+ "group by users.state";
-
+			users = "select users.state as name, states.id as uid, sales.pid, sum(sales.quantity * sales.price) "
+					+ "from users, sales, products, states "
+					+ "where sales.uid = users.id "
+					+ "and users.state = states.name "
+					+ "group by users.state, states.id, sales.pid";
+			
+			/*users = "select users.state as name, states.id as uid, sales.pid, sum(sales.quantity * sales.price) "
+					+ "from users, sales, products "
+					+ "where sales.uid = users.id "
+					+ bean.genAge()
+					+ bean.genCat()
+					+ bean.genState()
+					+ "group by users.state, states.id, sales.pid";*/
+			System.out.println(users);
 		}
 
 		/*
@@ -336,7 +346,7 @@ public class UserDAO {
 		return bean;
 	}
 
-	public static UserBean getCountUsers(UserBean bean) {
+	public static UserBean getCountProds(UserBean bean) {
 		String str = "select count(*) from products where 1 =1 "
 				+ bean.genCat();
 		System.out.println("IN CAT QUERY");
@@ -362,7 +372,7 @@ public class UserDAO {
 		return bean;
 	}
 
-	public static UserBean getCountProds(UserBean bean) {
+	public static UserBean getCountUsers(UserBean bean) {
 		String str = "select count(temp.id) from temp";
 		System.out.println("IN CAT QUERY");
 

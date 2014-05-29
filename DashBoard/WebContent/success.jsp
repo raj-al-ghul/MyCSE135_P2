@@ -132,7 +132,7 @@
 										i++;
 									}
 									UserDAO.closeConn();
-									currentUser.makeStrings();
+									
 								%>
 						</select></TD>
 
@@ -214,6 +214,7 @@
 							currentUser = UserDAO.getCountUsers(currentUser);
 							UserDAO.closeConn();
 						}
+			
 
 						currentUser = UserDAO.getCountProds(currentUser);
 						UserDAO.closeConn();
@@ -234,8 +235,8 @@
 
 							for (i = 0; i < count && i < 10; i++) {
 
-								out.write("<TD>" + currentUser.rs.getString(strArr[i])
-										+ "</TD>");
+								out.write("<TD>$" + currentUser.rs.getString(strArr[i])
+										+ ".00</TD>");
 
 							}
 
@@ -260,9 +261,9 @@
 	<center>
 
 		<%
-			System.out.println("^^^^^BUTTONS: " + currentUser.prodTot + " - "
+			System.out.println("^^^^^BUTTONS PRD: " + currentUser.prodTot + " - "
 					+ currentUser.prodCurr);
-			System.out.println("^^^^^BUTTONS: " + currentUser.viewTot + " - "
+			System.out.println("^^^^^BUTTONS VIE: " + currentUser.viewTot + " - "
 					+ currentUser.viewCurr);
 
 			if (currentUser.prodTot > currentUser.prodCurr) {
