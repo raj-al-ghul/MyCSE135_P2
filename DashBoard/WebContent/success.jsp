@@ -300,8 +300,8 @@
 				if (selectedView.equals("state")) {
 					buttonView = "State";
 				}*/
-			//if (currentUser.curUsers < currentUser.totUsers)
-			if (currentUser.viewTot > currentUser.viewCurr) {
+			// FIXES THE STATE VIEW BUTTON PROBLEM WHEN THERE IS A STATE SELECTED
+			if (currentUser.viewTot > currentUser.viewCurr && selectedSt.equals("default")) {{
 		%>
 
 		<form action="ControllerServlet">
